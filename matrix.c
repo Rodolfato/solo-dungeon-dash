@@ -40,7 +40,6 @@ int ** generarTablero(){
     }
 
     return tablero;
-
 }
 
 int liberar_tablero(int ** tablero){
@@ -132,7 +131,6 @@ int ** ingresarJugada(int ** tablero, int fila, int columna){
     }
 
     return tablero;
-
 } 
 
 
