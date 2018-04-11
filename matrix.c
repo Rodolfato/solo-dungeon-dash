@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int ** generarTablero(){
 
@@ -6,21 +7,52 @@ int ** generarTablero(){
         El inicio del tablero está dado por el "8" y el final por el "9".
         Números "2" simbolizan casilleros inválidos. */
 
-    static int tablero[12][9] = {  {2,2,2,2,9,2,2,2,2},
-                                {0,0,0,0,0,0,0,0,0},
-                                {0,0,0,0,0,0,0,0,0},
-                                {0,0,0,0,0,0,0,0,0},
-                                {0,0,0,0,0,0,0,0,0},
-                                {0,0,0,0,0,0,0,0,0},
-                                {0,0,0,0,0,0,0,0,0},
-                                {0,0,0,0,0,0,0,0,0},
-                                {0,0,0,0,0,0,0,0,0},
-                                {0,0,0,0,0,0,0,0,0},
-                                {0,0,0,0,0,0,0,0,0},
-                                {2,2,2,2,8,2,2,2,2}  };
+    int ** tablero = (int **)malloc(12 * sizeof(int *));
+    int fila;
+    int columna;
+
+    for(fila = 0; fila < 12; fila++){
+
+        tablero[fila] = (int *)malloc(9 * sizeof(int)); 
+
+    }
+
+    for(fila = 0; fila < 12; fila++){
+
+        for(columna = 0; columna < 9; columna++){
+
+            if(fila == 0 && columna != 4)
+                tablero[fila][columna] = 2;
+
+            if(fila == 0 && columna == 4)
+                tablero[fila][columna] = 9;
+
+            if(fila > 0 && fila < 10)
+                tablero[fila][columna] = 0;
+
+            if(fila == 11 && columna != 4)
+                tablero[fila][columna] = 2;
+
+            if(fila == 11 & columna == 4)
+                tablero[fila][columna] = 8;
+
+        }
+    }
 
     return tablero;
 
+}
+
+int liberar_tablero(int ** tablero){
+
+    int fila;
+
+    for(fila = 0; fila < 12; fila++){
+
+        free(tablero[fila]);
+    }
+
+    free(tablero);
 }
 
 int ** ingresarJugada(int ** tableroModificado){
@@ -85,9 +117,12 @@ int imprimirTablero(int ** tablero){
 
 int main(){
 
-    int ** tablero = generarTablero();
+    int ** tablero;
+    tablero = generarTablero();
+
     imprimirTablero(tablero);
-    
+
+    liberar_tablero(tablero);
 
     return 0;
 }
