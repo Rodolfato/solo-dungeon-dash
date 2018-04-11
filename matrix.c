@@ -33,7 +33,7 @@ int ** generarTablero(){
             if(fila == 11 && columna != 4)
                 tablero[fila][columna] = 2;
 
-            if(fila == 11 & columna == 4)
+            if(fila == 11 && columna == 4)
                 tablero[fila][columna] = 8;
 
         }
@@ -54,43 +54,6 @@ int liberar_tablero(int ** tablero){
 
     free(tablero);
 }
-
-int ** ingresarJugada(int ** tableroModificado){
-    
-    int jugada;
-    printf("Ingrese su jugada:\n>>");
-    scanf("%d", &jugada);
-
-    int j = 4;
-    int i = 11;
-
-    if(jugada == 1)
-        tableroModificado[i - 1][j - 1] = 1;
-
-    if(jugada == 2)
-        tableroModificado[i - 1][j] = 1;
-
-    if(jugada == 3)
-        tableroModificado[i - 1][j + 1] = 1;
-
-    if(jugada == 4)
-        tableroModificado[i][j + 1] = 1;
-
-    if(jugada == 5)
-        tableroModificado[i + 1][j + 1] = 1;
-
-    if(jugada == 6)
-        tableroModificado[i + 1][j] = 1;
-
-    if(jugada == 7)
-        tableroModificado[i + 1][j - 1] = 1;
-
-    if(jugada == 8)
-        tableroModificado[i][j - 1] = 1;
-
-    return tableroModificado;
-
-} 
 
 int imprimirTablero(int ** tablero){
 
@@ -114,13 +77,71 @@ int imprimirTablero(int ** tablero){
     return 0;
 }
 
+int ** ingresarJugada(int ** tablero, int fila, int columna){
+    
+    int jugada;
+    printf("Ingrese su jugada:\n>>");
+    scanf("%d", &jugada);
+
+    if(jugada == 1){
+        tablero[fila - 1][columna - 1] = 1;
+        imprimirTablero(tablero);
+        ingresarJugada(tablero, fila - 1, columna - 1);
+    }
+
+    if(jugada == 2){
+        tablero[fila - 1][columna] = 1;
+        imprimirTablero(tablero);
+        ingresarJugada(tablero, fila -1, columna);
+    }
+
+    if(jugada == 3){
+        tablero[fila - 1][columna + 1] = 1;
+        imprimirTablero(tablero);
+        ingresarJugada(tablero, fila - 1, columna + 1);
+    }
+
+    if(jugada == 4){
+        tablero[fila][columna + 1] = 1;
+        imprimirTablero(tablero);
+        ingresarJugada(tablero, fila, columna + 1);
+    }
+
+    if(jugada == 5){
+        tablero[fila + 1][columna + 1] = 1;
+        imprimirTablero(tablero);
+        ingresarJugada(tablero, fila + 1, columna + 1);
+    }
+
+    if(jugada == 6){
+        tablero[fila + 1][columna] = 1;
+        imprimirTablero(tablero);
+        ingresarJugada(tablero, fila + 1, columna);
+    }
+
+    if(jugada == 7){
+        tablero[fila + 1][columna - 1] = 1;
+        imprimirTablero(tablero);
+        ingresarJugada(tablero, fila +1, columna - 1);
+    }
+
+    if(jugada == 8){
+        tablero[fila][columna - 1] = 1;
+        imprimirTablero(tablero);
+        ingresarJugada(tablero, fila, columna - 1);
+    }
+
+    return tablero;
+
+} 
+
 
 int main(){
 
     int ** tablero;
     tablero = generarTablero();
 
-    imprimirTablero(tablero);
+    ingresarJugada(tablero, 11, 4);
 
     liberar_tablero(tablero);
 
