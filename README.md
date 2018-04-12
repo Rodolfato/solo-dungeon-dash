@@ -1,2 +1,3 @@
 # solo-dungeon-dash
-# solo-dungeon-dash
+
+Text based Solo Dungeon Bash wannabe videogame.
