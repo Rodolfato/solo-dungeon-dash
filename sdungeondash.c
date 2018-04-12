@@ -44,7 +44,7 @@ int ** generarTablero(){
     return tablero;
 }
 
-int liberar_tablero(int ** tablero){
+int liberarTablero(int ** tablero){
 
     int fila;
 
@@ -54,6 +54,22 @@ int liberar_tablero(int ** tablero){
     }
 
     free(tablero);
+}
+
+int ingresarJugada(){
+
+    int jugada;
+    printf("\nIngrese su jugada:\n>>");
+    scanf("%d", &jugada);
+
+    while(jugada > 8 || jugada <= 0){
+
+        printf("Ingrese una jugada válida:\n>>");
+        scanf("%d", &jugada);
+    }
+
+    return jugada;
+
 }
 
 int * encontrarJugador(int ** tablero){
@@ -71,6 +87,7 @@ int * encontrarJugador(int ** tablero){
             if(tablero[fila][columna] == 1){
                 filaEncontrada = fila;
                 columnaEncontrada = columna;
+
             }
         }
     }
@@ -86,37 +103,57 @@ int validarJugada(int ** tablero, int jugada, int fila, int columna){
 
     if(fila == 11 && columna == 4){
 
-        while(jugada > 4){
+        while(jugada >= 3){
 
             printf("Jugada inválida\n");
-            printf("Sus jugadas válidas son 1, 2 ó 3.\n")
-            generarJugada(tablero, )
+            //printf("Sus jugadas válidas son 1, 2 ó 3.\n");
+            jugada = ingresarJugada();
+
         }
-
-
-
-
     }
 
+    if(fila == 10 && columna != 8 && columna != 0){
 
+        while(jugada > 4 && jugada != 8){
+
+            printf("Jugada inválida\n");
+            //printf("Sus jugadas válidas son 1, 2, 3, 4 ú 8");
+            jugada = ingresarJugada();
+        }
+    }
+
+    if(fila == 10 && columna == 0){
+
+        while(jugada >= 4 || jugada == 1){
+
+            printf("Jugada inválida\n");
+            //printf("Sus jugadas válidas son 2, 3 ó 4 ");
+            jugada = ingresarJugada();
+
+        }
+    }
+
+    if(fila == 10 && columna == 8){
+
+        while(jugada != 2 && jugada != 1 && jugada != 8){
+
+            printf("Jugada inválida\n");
+            //printf("Sus jugadas válidas son 1, 2 ú 8");
+            jugada = ingresarJugada();
+        }
+    }   
+
+    return jugada;
 }
 
-int ingresarJugada(int ** tablero, int fila, int columna){
+int ** modificarTablero(int ** tablero, int jugada){
 
-    printf("\nfila:%d\n", fila);
-    printf("columna:%d\n", columna);
-
-    int jugada;
     int * ubicacion;
-    
-    printf("\nIngrese su jugada:\n>>");
-    scanf("%d", &jugada);
-
-    while(jugada > 8){
-
-        printf("Ingrese una jugada válida:\n>>");
-        scanf("%d", &jugada);
-    }
+    int fila;
+    int columna;
+    ubicacion = encontrarJugador(tablero);
+    fila = ubicacion[0];
+    columna = ubicacion[1];
 
     if(jugada == 1)
         tablero[fila - 1][columna - 1] = 1;
@@ -142,6 +179,9 @@ int ingresarJugada(int ** tablero, int fila, int columna){
     if(jugada == 8)
         tablero[fila][columna - 1] = 1;
 
+    tablero[fila][columna] = 3;
+
+    return tablero;
 
 }
 
@@ -167,21 +207,32 @@ int imprimirTablero(int ** tablero){
     return 0;
 }
 
-int ** generarJugada(int ** tablero, int fila, int columna){
-    
-    
-
-    return tablero;
-} 
-
 int main(){
 
+    int jugada;
+    int * ubicacion;
     int ** tablero;
+    int condicion;
+
+    condicion = 0;
     tablero = generarTablero();
 
-    generarJugada(tablero, 11, 4);
+    imprimirTablero(tablero);
 
-    liberar_tablero(tablero);
+    while(condicion == 0){
+
+        jugada = ingresarJugada();
+        ubicacion = encontrarJugador(tablero);
+        printf("%d", ubicacion[0]);
+        printf("%d", ubicacion[1]);
+        jugada = validarJugada(tablero, jugada, ubicacion[0], ubicacion[1]);
+        tablero = modificarTablero(tablero, jugada);
+
+
+        imprimirTablero(tablero);
+    }
+
+    liberarTablero(tablero);
 
     return 0;
 }
