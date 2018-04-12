@@ -101,47 +101,132 @@ int * encontrarJugador(int ** tablero){
 
 int validarJugada(int ** tablero, int jugada, int fila, int columna){
 
+    //Validación del punto de partida.
     if(fila == 11 && columna == 4){
-
+        //Jugadas válidas son 1, 2 ó 3.
         while(jugada >= 3){
 
             printf("Jugada inválida\n");
-            //printf("Sus jugadas válidas son 1, 2 ó 3.\n");
             jugada = ingresarJugada();
 
         }
     }
 
+    //Validación de la fila 10.
     if(fila == 10 && columna != 8 && columna != 0){
-
+        //Jugadas válidas son 1, 2, 3, 4 ú 8.
         while(jugada > 4 && jugada != 8){
 
             printf("Jugada inválida\n");
-            //printf("Sus jugadas válidas son 1, 2, 3, 4 ú 8");
             jugada = ingresarJugada();
         }
     }
 
+    //Validación de la esquina inferior izquierda.
     if(fila == 10 && columna == 0){
-
-        while(jugada >= 4 || jugada == 1){
+        //Jugadas válidas son 2,3 ó 4.
+        while(jugada > 4 || jugada == 1){
 
             printf("Jugada inválida\n");
-            //printf("Sus jugadas válidas son 2, 3 ó 4 ");
             jugada = ingresarJugada();
 
         }
     }
 
+    //Validación de la esquina inferior derecha.
     if(fila == 10 && columna == 8){
-
+        //Jugadas válidas son 1, 2 ó 8.
         while(jugada != 2 && jugada != 1 && jugada != 8){
 
             printf("Jugada inválida\n");
-            //printf("Sus jugadas válidas son 1, 2 ú 8");
             jugada = ingresarJugada();
         }
     }   
+
+    //Validación de la fila 1.
+    if(fila == 1 && columna != 0 && columna != 8  && columna != 3 && columna != 4 && columna != 5){
+        //Jugadas válidas son 4, 5, 6, 7 ó 8.
+        while(jugada != 4 && jugada != 5 && jugada != 6 && jugada != 7 && jugada != 8){
+
+            printf("Jugada inválida\n");
+            jugada = ingresarJugada();
+
+        }
+    }
+
+    //Validación de la esquina superior izquierda.
+    if(fila == 1 && columna == 0){
+        //Jugadas válidas son 4, 5 ó 6.
+        while(jugada != 4 && jugada != 5 && jugada != 6){
+
+            printf("Jugada inválida\n");
+            jugada = ingresarJugada();
+        }
+    }
+
+    //Validación de la esquina superior derecha.
+    if(fila == 1 && columna == 8){
+        //Jugadas válidas son 6, 7 ó 8.
+        while(jugada != 8 && jugada != 7 && jugada != 6){
+
+            printf("Jugada inválida\n");
+            jugada = ingresarJugada();
+        }
+    }
+
+    //Validación de la columna 0.
+    if(columna == 0 && fila != 1 && fila != 10){
+
+        while(jugada == 7 || jugada == 8 || jugada == 1){
+
+            printf("Jugada inválida\n");
+            jugada = ingresarJugada();
+
+        }
+    }
+
+    //Validación de la columna 8.
+    if(columna == 8 && fila != 1 && fila != 10){
+
+        while(jugada == 3 || jugada == 4 || jugada == 5){
+
+            printf("Jugada inválida\n");
+            jugada = ingresarJugada();
+        }
+    }
+
+
+    //Validación de la esquina inferior izquierda del cuadro final del juego.
+    if(fila == 1 && columna == 3){
+        //Jugadas válidas son 3, 4, 5, 6, 7 ú 8.
+        while(jugada == 1 || jugada == 2){
+
+            printf("Jugada inválida\n");
+            jugada = ingresarJugada();
+        }
+
+    }
+
+    //Validación del cuadro anterior al cuadro final del juego.
+    if(fila == 1 && columna == 4){
+
+        while(jugada == 1 || jugada == 3){
+
+            printf("Jugada inválida\n");
+            jugada = ingresarJugada();
+        }
+    }
+
+    //Validación del cuadro inferior derecho al cuadro final del juego.
+    if(fila == 1 && columna == 5){
+
+        while(jugada == 2 || jugada == 3){
+
+            printf("Jugada inválida\n");
+            jugada = ingresarJugada();
+        }
+    }
+
 
     return jugada;
 }
