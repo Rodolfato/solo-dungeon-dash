@@ -64,9 +64,9 @@ int lanzarDado(){
     time_t t;
 
     srand((unsigned) time(&t));
-    resultado = rand() % 7;
+    resultado = rand() % 5;
 
-    printf("\nSu dado entrego un %d\n", resultado);
+    printf("\nSu dado entrego un %d\n", resultado + 1);
 
 
     return resultado;
@@ -188,11 +188,24 @@ int * encontrarEntidad(int ** tablero){
             bolso[0] += 1;
         }
 
-        if(dado == 6){
-            printf("\nEncontraste un tesoro.");
-            bolso[1] += 1; 
-
+        if(dado > 0 && dado < 4){
+            printf("\nUn OGRO bloquea tu camino.\n'Pelea insecto'\n");
         }
+
+        if(dado == 4){
+            printf("\nUna mosca vuela de pared en pared...\n");
+        }
+
+        if(dado == 5){
+            printf("\nEncontraste una poción.");
+            bolso[1] += 1;
+        }
+
+    }
+
+    if(ubicacion[0] == 9){
+
+
     }
 
     return bolso;
@@ -424,13 +437,11 @@ int main(){
 
         tablero = modificarTablero(tablero, jugada);
 
-        mochila = encontrarEntidad(tablero);
-        
-        printf("%d\n", mochila[0]);
-        printf("%d", mochila[1]);
-
-
         imprimirTablero(tablero);
+
+        mochila = encontrarEntidad(tablero);
+        printf("\nPociones: %d\n", mochila[0]);
+        printf("Tesoros: %d\n", mochila[1]);
     }
 
     liberarTablero(tablero);
