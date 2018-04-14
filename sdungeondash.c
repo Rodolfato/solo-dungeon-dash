@@ -156,7 +156,7 @@ int * encontrarJugador(int ** tablero){
 }
 
 int validarJugada(int ** tablero, int jugada, int fila, int columna){
-
+    printf("1");
     //Validación de un cuadro en el cual el jugador ya estuvo.
     int * conversion;
     //Se convierte la jugada que el jugador quiere ingresar a "coordenadas" utilizables en el array que simboliza el tablero.
@@ -166,14 +166,16 @@ int validarJugada(int ** tablero, int jugada, int fila, int columna){
         //Si existe un 3 en el casillero elegido, entonces se le muestra un mensaje de error y se le pide que ingrese nuevamente su jugada.
         printf("Usted ya estuvo en este casillero, por favor elegir otra opción.\n");
         jugada = ingresarJugada();
+        jugada = validarJugada(tablero, jugada, fila, columna);
     }
 
     //Validación del punto de partida.
     if(fila == 11 && columna == 4){
         //Jugadas válidas son 1, 2 ó 3.
-        while(jugada >= 3){
+        printf("lol");
+        while(jugada >= 3 || jugada == 6){
 
-            printf("Jugada inválida\n");
+            printf("\nJugada inválida\n");
             jugada = ingresarJugada();
 
         }
@@ -374,7 +376,9 @@ int main(){
     while(condicion == 0){
 
         jugada = ingresarJugada();
+        printf("3");
         ubicacion = encontrarJugador(tablero);
+        printf("2");
         jugada = validarJugada(tablero, jugada, ubicacion[0], ubicacion[1]);
         tablero = modificarTablero(tablero, jugada);
 
