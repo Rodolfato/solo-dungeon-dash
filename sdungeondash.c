@@ -64,9 +64,13 @@ int lanzarDado(){
     time_t t;
 
     srand((unsigned) time(&t));
-    resultado = rand() % 5;
+    resultado = rand() % ((6 + 1 - 1) + 1);
 
-    printf("\nSu dado entrego un %d\n", resultado + 1);
+    while(resultado == 0){
+        resultado = rand() % ((6 + 1 - 1) + 1);
+    }
+
+    printf("\nSu dado entregó un %d\n", resultado);
 
 
     return resultado;
@@ -171,42 +175,168 @@ int * encontrarJugador(int ** tablero){
 
 }
 
+int * generarMochila(){
+    static int bolso[5];
+
+    //Pociones
+    bolso[0] = 0;
+    //Tesoros
+    bolso[1] = 0;
+    //Dados de ataque
+    bolso[2] = 1;
+    //Dados de defensa
+    bolso[3] = 1;
+    //Vida
+    bolso[4] = 17;
+
+    return bolso;
+
+
+}
+
+void imprimirMochila(int * bolso){
+    printf("\n__________________________________\n");
+    printf("\nDados de Ataque: %d   Dados de Defensa: %d\n\nVida: %d\n\nPociones: %d            Tesoros: %d\n", bolso[2], bolso[3], bolso[4], bolso[0], bolso[1]);
+    printf("\n__________________________________\n");
+}
+
+int batallar(int bolso, int dadosAtaqueEnemigo, int dadosDefensaEnemigo, int dadosAtaqueJugador, int dadosDefensaJugador){
+// bolso = [pocion, tesoro, dadosAtaque, dadosDefensa, vida]
+
+
+}
+
 int * encontrarEntidad(int ** tablero){
 
     int * ubicacion;
-    static int bolso[2];
+    static int bolso[5];
     int dado;
-
+// bolso = [pocion, tesoro, dadosAtaque, dadosDefensa, vida]
     ubicacion = encontrarJugador(tablero);
 
     if(ubicacion[0] == 10){
 
         dado = lanzarDado();
 
-        if(dado == 0){
-            printf("\nEncontraste una poción.");
+        if(dado == 1){
+            printf("\nEncontraste una poción.\n");
             bolso[0] += 1;
         }
 
-        if(dado > 0 && dado < 4){
+        if(dado > 1 && dado < 5){
             printf("\nUn OGRO bloquea tu camino.\n'Pelea insecto'\n");
         }
 
-        if(dado == 4){
+        if(dado == 5){
             printf("\nUna mosca vuela de pared en pared...\n");
         }
 
-        if(dado == 5){
+        if(dado == 6){
             printf("\nEncontraste una poción.");
-            bolso[1] += 1;
+            bolso[0] += 1;
         }
 
     }
 
     if(ubicacion[0] == 9){
 
+        dado = lanzarDado();
+
+        if(dado == 1){
+            printf("\nUn OGRO bloquea tu pasar\n'De aquí no pasas'\n");
+
+        }
+
+        if(dado == 2){
+            printf("\nVes un LOBO marcar su territorio.\nTu presencia no le es grata...\n");
+
+        }
+
+        if(dado == 3){
+            printf("\nVes salir vapor de varias calderas en el suelo...\n");
+        }
+
+        if(dado == 4){
+            printf("\nVes el cadáver de uno de tus enanos compatriotas...\nAvanzas con un poco de miedo...\n");
+
+        }
+
+        if(dado == 5){
+            printf("\nEl olor a descomposición casi no te deja avanzar...\nTu sentido del orgullo te obliga a seguir...\n");
+        }
+
+        if(dado == 6){
+            printf("\nUn cofre resplandeciente hace brillar tu alrededor.\nTu instinto avaricioso de enano te obliga a guardar sus contenidos...\nHas adquirido un nuevo tesoro.\n");
+            bolso[1] += 1;
+
+        }
 
     }
+
+    if(ubicacion[0] == 8){
+
+        dado = lanzarDado();
+
+        if(dado == 1){
+            printf("\nUn OGRO te mira al pasar.\nTu presencia no le agrada...\n");
+        }
+
+        if(dado == 2){
+            printf("\nUn LOBO de apariencia robusta come un enano que yace muerto.\nCarne fresca...\n");
+
+        }
+
+        if(dado == 3){
+            printf("\nUn ESQUELETO que asemeja un elfo del bosque saca sus armas al verte pasar...\n");
+        }
+
+        if(dado == 4){
+            printf("\nUna bolsa reposa al lado de un cadáver irreconocible.\nSus contenidos son perlas brillantes.\nHas adquirido un tesoro.\n");
+            bolso[1] += 1;
+        }
+
+        if(dado == 5){
+            printf("\nUna botella que contiene un élixir parecido al de los elfos del Mirkwood yace frente a ti.\nDecides guardarla.\nHas adquirido una poción.\n");
+            bolso[0] += 1;
+        }
+
+        if(dado == 6){
+            printf("\nLa vibración de las moscas a tu alrededor te molesta de sobremanera...\n");
+        }
+    }
+
+    if(ubicacion[0] == 7){
+
+        dado = lanzarDado();
+
+        if(dado == 1){
+            printf("\nUn OGRO horriblemente deformado cruza sus cejas al verte pasar...\n");
+
+        }
+
+        if(dado == 2){
+            printf("\nUn LOBO arrastra su cola mientras se acerca en tu dirección...·\n");
+        }
+
+        if(dado == 3){
+            printf("\nUn robusto ESQUELETO hace círculos con una espada de plata al darse cuenta de tu presencia...\n");
+
+        }
+
+        if(dado == 4){
+            printf("\nUn humanoide jorobado de apariencia robusta se dispone a pelear...\n'Mis habilidades de GUERRERO son insuperables'\n ");
+        }
+
+        if(dado == 5){
+            printf("\nQué bello el resplandor de éstas monedas...\nLas guardas en tu morral.\nHas adquirido un tesoro.\n");
+            bolso[1] += 1;
+        }
+
+        if(dado == 6){
+            printf("\nLa penumbra apenas te deja ver tu camino.\nDecides avanzar con cautela...\n");
+
+        }
+    }   
 
     return bolso;
 }
@@ -219,7 +349,7 @@ int validarJugada(int ** tablero, int jugada, int fila, int columna){
     //Se usan estas "coordenadas" para revisar si existe un "3" en el casillero elegido.
     if(tablero[conversion[0]][conversion[1]] == 3){
         //Si existe un 3 en el casillero elegido, entonces se le muestra un mensaje de error y se le pide que ingrese nuevamente su jugada.
-        printf("Usted ya estuvo en este casillero, por favor elegir otra opción.\n");
+        printf("\nUsted ya estuvo en este casillero, por favor elegir otra opción.\n");
         jugada = ingresarJugada();
         jugada = validarJugada(tablero, jugada, fila, columna);
     }
@@ -425,8 +555,11 @@ int main(){
 
     condicion = 0;
     tablero = generarTablero();
+    mochila = generarMochila();
+
 
     imprimirTablero(tablero);
+    imprimirMochila(mochila);
 
     while(condicion == 0){
 
@@ -434,14 +567,12 @@ int main(){
         ubicacion = encontrarJugador(tablero);
         jugada = validarJugada(tablero, jugada, ubicacion[0], ubicacion[1]);
 
-
         tablero = modificarTablero(tablero, jugada);
 
         imprimirTablero(tablero);
 
         mochila = encontrarEntidad(tablero);
-        printf("\nPociones: %d\n", mochila[0]);
-        printf("Tesoros: %d\n", mochila[1]);
+        imprimirMochila(mochila);
     }
 
     liberarTablero(tablero);
