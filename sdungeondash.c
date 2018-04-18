@@ -58,20 +58,28 @@ int liberarTablero(int ** tablero){
     free(tablero);
 }
 
+void saltarMucho(){
+
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+}
+
+int presionarEnter(){
+
+    printf("\nPresione 'Enter' para continuar.\n");
+    getc(stdin);
+    return 0;
+}
+
+
 int lanzarDado(){
 
     int resultado;
-    time_t t;
 
-    srand((unsigned) time(&t));
     resultado = rand() % ((6 + 1 - 1) + 1);
 
     while(resultado == 0){
         resultado = rand() % ((6 + 1 - 1) + 1);
     }
-
-    printf("\nSu dado entregó un %d\n", resultado);
-
 
     return resultado;
 }
@@ -190,8 +198,6 @@ int * generarMochila(){
     bolso[4] = 17;
 
     return bolso;
-
-
 }
 
 void imprimirMochila(int * bolso){
@@ -200,18 +206,159 @@ void imprimirMochila(int * bolso){
     printf("\n__________________________________\n");
 }
 
-int batallar(int bolso, int dadosAtaqueEnemigo, int dadosDefensaEnemigo, int dadosAtaqueJugador, int dadosDefensaJugador){
+int buscarSeis(int * dadosLanzados, int largo){
+
+    int seisEnc = 0;
+    int contador;
+
+    for(contador = 0; contador < largo; contador++){
+
+        if(dadosLanzados[contador] == 6)
+            seisEnc += 1;
+
+    }
+
+    return seisEnc;
+}
+
+int * batallar(int * bolso, int dadosAtaqueEnemigo, int dadosDefensaEnemigo, int dadosAtaqueJugador, int dadosDefensaJugador, int monstruo){
 // bolso = [pocion, tesoro, dadosAtaque, dadosDefensa, vida]
 
+    saltarMucho();
+    int instancia;
+    int lanzamiento;
+    int resultado;
+
+    int dadoLanzadoAtaqueEnemigo[dadosAtaqueEnemigo];
+    int dadoLanzadoAtaqueJugador[dadosAtaqueJugador];
+
+    int dadoLanzadoDefensaEnemigo[dadosDefensaEnemigo];
+    int dadoLanzadoDefensaJugador[dadosDefensaJugador];
+
+    int ataqueEnemigo = 0;
+    int defensaEnemigo = 0;
+
+    int ataqueJugador = 0;
+    int defensaJugador = 0;
+
+    int resultadoJugador = 0;
+    int resultadoEnemigo = 0;
+
+    int finalCombate = 0;
+
+    while(finalCombate == 0){
+
+        for(instancia = 1; instancia <= dadosAtaqueEnemigo; instancia++){
+            resultado = lanzarDado();
+            
+            dadoLanzadoAtaqueEnemigo[instancia - 1] = resultado;
+
+            }
+
+        for(lanzamiento = 0; lanzamiento < dadosAtaqueEnemigo; lanzamiento++){
+
+            printf("El enemigo lanzó un %d.\n ", dadoLanzadoAtaqueEnemigo[lanzamiento]);
+        }
+
+        //Se buscan si existen '6' en los lanzamientos del enemigo.
+        ataqueEnemigo = buscarSeis(dadoLanzadoAtaqueEnemigo, dadosAtaqueEnemigo);
+
+        //Si existe uno o más '6' en los lanzamientos del enemigo, se procede a la defensa del jugador.
+        if(ataqueEnemigo >= 1){
+
+            //Dependiendo de cuántos dados el jugador posea, se llama a la función lanzarDado().
+            for(instancia = 1; instancia <= dadosDefensaJugador; instancia++){
+                //Todos los resultados son guardados en un arreglo correspondiente.
+                resultado = lanzarDado();
+                dadoLanzadoDefensaJugador[instancia - 1] = resultado;
+            }
+
+            printf("\nEl enemigo prepara %d ataque(s).\n", ataqueEnemigo);
+            printf("Preparas tu mejor defensa...\n");
+            presionarEnter();
+            saltarMucho();
+
+            for(lanzamiento = 0; lanzamiento < dadosDefensaJugador; lanzamiento++){
+
+                printf("Lanzaste un %d\n", dadoLanzadoDefensaJugador[lanzamiento]);
+            }
+
+            defensaJugador = buscarSeis(dadoLanzadoDefensaJugador, dadosDefensaJugador);
+
+            printf("\nBloqueaste %d ataque(s).\n", defensaJugador);
+
+            if((defensaJugador - ataqueEnemigo) < 0){
+                //Si la resta de la cantidad de '6' lanzados en la defensa del jugador con la cantidad de '6' en el ataque del enemigo es negativa, el jugador pierde una vida.
+                printf("\nSientes un fuerte dolor en tu cuerpo.\nPerdiste %d vida(s).\n", -1*(defensaJugador - ataqueEnemigo));
+                //Se le restan las vidas correspondiente al jugador.
+                bolso[4] += (defensaJugador - ataqueEnemigo);
+                printf("Te quedan %d vidas.\n", bolso[4]);
+                presionarEnter();
+                saltarMucho();
+            }
+
+            if((defensaJugador - ataqueEnemigo) >= 0){
+
+                printf("\nCon un poco de habilidad y bastante suerte logras bloquear todos los ataques del enemigo.\n");
+                presionarEnter();
+                saltarMucho();
+            }            
+        }
+
+        else if(ataqueEnemigo == 0){
+
+            printf("\nEl enemigo resbala al atacarte y retrocede.\n");
+        }
+
+        printf("Sudando, levantas tu arma en un intento de ataque...\n");
+        presionarEnter();
+        saltarMucho();
+
+        for(instancia = 1; instancia <= dadosAtaqueJugador; instancia++){
+
+            resultado = lanzarDado();
+            dadoLanzadoAtaqueJugador[instancia - 1] = resultado;
+        }
+
+        for(lanzamiento = 0; lanzamiento < dadosAtaqueJugador; lanzamiento++){
+
+            printf("Lanzaste un %d \n", dadoLanzadoAtaqueJugador[lanzamiento]);
+        }
+
+        ataqueJugador = buscarSeis(dadoLanzadoAtaqueJugador, dadosAtaqueJugador);
+        if(ataqueJugador == 0){
+
+            printf("Atacas con todas tus fuerzas.\nTus esfuerzos son en vano, tu enemigo sigue en pie.\n");
+        }
+
+        presionarEnter();
+        saltarMucho();
+        if(ataqueJugador >= 1 && dadosDefensaEnemigo == 0){
+
+            printf("Atacas con toda tu furia.\n¡Heriste mortalmente a tu enemigo!\nLa victoria es tuya.");
+            presionarEnter();
+            finalCombate = 1;
+        }
+
+        if(dadosDefensaEnemigo > 0 && ataqueJugador >= 1){
+            for(instancia = 1; instancia <= dadosDefensaEnemigo; instancia++){
+
+                resultado = lanzarDado();
+                dadoLanzadoDefensaEnemigo[instancia - 1 ] = resultado;
+            }
+        }
 
 }
 
-int * encontrarEntidad(int ** tablero){
+    saltarMucho();
+    return bolso;
+}
+
+int * encontrarEntidad(int ** tablero, int * bolso){
 
     int * ubicacion;
-    static int bolso[5];
     int dado;
-// bolso = [pocion, tesoro, dadosAtaque, dadosDefensa, vida]
+    //bolso = [pocion, tesoro, dadosAtaque, dadosDefensa, vida]
     ubicacion = encontrarJugador(tablero);
 
     if(ubicacion[0] == 10){
@@ -221,19 +368,31 @@ int * encontrarEntidad(int ** tablero){
         if(dado == 1){
             printf("\nEncontraste una poción.\n");
             bolso[0] += 1;
+            getchar();
+            presionarEnter();
         }
 
         if(dado > 1 && dado < 5){
             printf("\nUn OGRO bloquea tu camino.\n'Pelea insecto'\n");
+            printf("¿Listo para pelear?\n");
+            getchar();
+            presionarEnter();
+
+            batallar(bolso, 9, 0, 1, 6, 1);
         }
 
         if(dado == 5){
             printf("\nUna mosca vuela de pared en pared...\n");
+            printf("Debes seguir avanzando.\n");
+            getchar();
+            presionarEnter();
         }
 
         if(dado == 6){
-            printf("\nEncontraste una poción.");
+            printf("\nEncontraste una poción.\n");
             bolso[0] += 1;
+            getchar();
+            presionarEnter();
         }
 
     }
@@ -257,7 +416,7 @@ int * encontrarEntidad(int ** tablero){
         }
 
         if(dado == 4){
-            printf("\nVes el cadáver de uno de tus enanos compatriotas...\nAvanzas con un poco de miedo...\n");
+            printf("\nVes el cadáver de un guerrero caído...\nAvanzas con un poco de miedo...\n");
 
         }
 
@@ -266,7 +425,7 @@ int * encontrarEntidad(int ** tablero){
         }
 
         if(dado == 6){
-            printf("\nUn cofre resplandeciente hace brillar tu alrededor.\nTu instinto avaricioso de enano te obliga a guardar sus contenidos...\nHas adquirido un nuevo tesoro.\n");
+            printf("\nUn cofre resplandeciente hace brillar tu alrededor.\nTu instinto avaricioso te obliga a guardar sus contenidos...\nHas adquirido un nuevo tesoro.\n");
             bolso[1] += 1;
 
         }
@@ -287,7 +446,7 @@ int * encontrarEntidad(int ** tablero){
         }
 
         if(dado == 3){
-            printf("\nUn ESQUELETO que asemeja un elfo del bosque saca sus armas al verte pasar...\n");
+            printf("\nUn ESQUELETO saca sus armas al verte pasar...\n");
         }
 
         if(dado == 4){
@@ -361,6 +520,7 @@ int validarJugada(int ** tablero, int jugada, int fila, int columna){
 
             printf("\nJugada inválida\n");
             jugada = ingresarJugada();
+            jugada = validarJugada(tablero, jugada, fila, columna);
 
         }
     }
@@ -372,6 +532,7 @@ int validarJugada(int ** tablero, int jugada, int fila, int columna){
 
             printf("\nJugada inválida\n");
             jugada = ingresarJugada();
+            jugada = validarJugada(tablero, jugada, fila, columna);
         }
     }
 
@@ -382,6 +543,7 @@ int validarJugada(int ** tablero, int jugada, int fila, int columna){
 
             printf("\nJugada inválida\n");
             jugada = ingresarJugada();
+            jugada = validarJugada(tablero, jugada, fila, columna);
 
         }
     }
@@ -393,6 +555,7 @@ int validarJugada(int ** tablero, int jugada, int fila, int columna){
 
             printf("\nJugada inválida\n");
             jugada = ingresarJugada();
+            jugada = validarJugada(tablero, jugada, fila, columna);
         }
     }   
 
@@ -403,6 +566,7 @@ int validarJugada(int ** tablero, int jugada, int fila, int columna){
 
             printf("\nJugada inválida\n");
             jugada = ingresarJugada();
+            jugada = validarJugada(tablero, jugada, fila, columna);
 
         }
     }
@@ -414,6 +578,7 @@ int validarJugada(int ** tablero, int jugada, int fila, int columna){
 
             printf("\nJugada inválida\n");
             jugada = ingresarJugada();
+            jugada = validarJugada(tablero, jugada, fila, columna);
         }
     }
 
@@ -424,6 +589,7 @@ int validarJugada(int ** tablero, int jugada, int fila, int columna){
 
             printf("\nJugada inválida\n");
             jugada = ingresarJugada();
+            jugada = validarJugada(tablero, jugada, fila, columna);
         }
     }
 
@@ -434,6 +600,7 @@ int validarJugada(int ** tablero, int jugada, int fila, int columna){
 
             printf("\nJugada inválida\n");
             jugada = ingresarJugada();
+            jugada = validarJugada(tablero, jugada, fila, columna);
 
         }
     }
@@ -445,6 +612,7 @@ int validarJugada(int ** tablero, int jugada, int fila, int columna){
 
             printf("\nJugada inválida\n");
             jugada = ingresarJugada();
+            jugada = validarJugada(tablero, jugada, fila, columna);
         }
     }
 
@@ -456,6 +624,7 @@ int validarJugada(int ** tablero, int jugada, int fila, int columna){
 
             printf("\nJugada inválida\n");
             jugada = ingresarJugada();
+            jugada = validarJugada(tablero, jugada, fila, columna);
         }
 
     }
@@ -467,6 +636,7 @@ int validarJugada(int ** tablero, int jugada, int fila, int columna){
 
             printf("\nJugada inválida\n");
             jugada = ingresarJugada();
+            jugada = validarJugada(tablero, jugada, fila, columna);
         }
     }
 
@@ -477,6 +647,7 @@ int validarJugada(int ** tablero, int jugada, int fila, int columna){
 
             printf("\nJugada inválida\n");
             jugada = ingresarJugada();
+            jugada = validarJugada(tablero, jugada, fila, columna);
         }
     }
 
@@ -546,7 +717,7 @@ int imprimirTablero(int ** tablero){
 }
 
 int main(){
-
+    srand(time(NULL));
     int jugada;
     int * ubicacion;
     int * mochila;
@@ -557,7 +728,6 @@ int main(){
     tablero = generarTablero();
     mochila = generarMochila();
 
-
     imprimirTablero(tablero);
     imprimirMochila(mochila);
 
@@ -566,12 +736,13 @@ int main(){
         jugada = ingresarJugada();
         ubicacion = encontrarJugador(tablero);
         jugada = validarJugada(tablero, jugada, ubicacion[0], ubicacion[1]);
+        saltarMucho();
 
         tablero = modificarTablero(tablero, jugada);
 
-        imprimirTablero(tablero);
+        mochila = encontrarEntidad(tablero, mochila);
 
-        mochila = encontrarEntidad(tablero);
+        imprimirTablero(tablero);
         imprimirMochila(mochila);
     }
 
