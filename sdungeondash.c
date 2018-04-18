@@ -145,11 +145,13 @@ int ingresarJugada(){
     int jugada;
     printf("\nIngrese su jugada:\n>>");
     scanf("%d", &jugada);
+    getchar();
 
     while(jugada > 8 || jugada <= 0){
 
         printf("Ingrese una jugada válida:\n>>");
         scanf("%d", &jugada);
+        getchar();
     }
 
     return jugada;
@@ -221,6 +223,95 @@ int buscarSeis(int * dadosLanzados, int largo){
     return seisEnc;
 }
 
+int * beberPocion(int * bolso){
+
+    saltarMucho();
+    int opcion;
+
+    if(bolso[0] > 0 && bolso[4] < 17){
+        
+        printf("\nAntes de seguir tu camino a través de la mina, veo que has perdido %d punto(s) de vida y tienes en tu poder %d pocion(es).\n¿Deseas consumir alguna(s)?\n\nSeleccione una opción:\n\n1. Sí, por favor.\n2. No, gracias.\n>>", 17 - bolso[4], bolso[0]);
+        scanf("%d", &opcion);
+        getchar();
+
+        while(opcion == 1 && bolso[0] > 0 && bolso[4] < 17){
+
+            printf("\nConsumiste una poción.\n\nTus puntos de vida subieron a %d.", bolso[4] + 1);
+            presionarEnter();
+            bolso[0] -= 1;
+            bolso[4] += 1;
+
+            if(bolso[0] = 0 || bolso[4] == 17){
+                if(bolso[0] == 0){
+                    printf("\n¡Se te han acabdo las pociones!\n");
+                    presionarEnter();
+                }
+
+                if(bolso[4] == 17){
+                    printf("\nLlegaste al máximo de vidas disponibles.");
+                    presionarEnter();
+                }
+                
+                opcion = 0;
+            }
+
+            else{
+                printf("\n¿Desea consumir otra poción?\nSeleccione una opción:\n1. Sí, más por favor.\n2. No más, gracias.\n>>");
+                scanf("%d", &opcion);
+                getchar();
+            }
+        }
+    }
+
+    return bolso;
+}
+
+int * comprar(int * bolso){
+
+    saltarMucho();
+
+    int opcion;
+    int catalogo;
+
+    printf("Una figura encapuchada se te acerca.\nTiene aspecto enfermizo.\nHabla un idioma desconocido...\n\n'Got some rare things on sale, stranger!'\n\nTe muestra un extraño catálogo.\nCreo que te quiere vender algo...\n");
+
+    printf("\n\n\t\t\t\tItem\t\t\t\t\t\tPrecio\n\n");
+    printf("_________________________________________________________________________________________\n");
+    printf("\n1. Escudo de Madera: Agrega un dado de defensa.\t\t\t\t\t1 Tesoro\n");
+    printf("\n2. Una poción.\t\t\t\t\t\t\t\t\t1 Tesoro\n");
+    printf("\n3. Escudo de Hierro: Agrega dos dados de defensa.\t\t\t\t2 Tesoros\n");
+    printf("\n4. Tres pociones.\t\t\t\t\t\t\t\t2 Tesoros\n");
+    printf("\n5. Espada: Agrega un dado de ataque.\t\t\t\t\t\t3 Tesoros\n");
+    printf("\n6. Seis pociones.\t\t\t\t\t\t\t\t3 Tesoros\n");
+    printf("\n7. Hacha guerrera: Agrega dos dados de ataque.\t\t\t\t\t4 Tesoros\n");
+    printf("\n8. Armadura con espinas: Agrega dos dados de ataque, y un dado de defensa.\t5 Tesoros\n");
+    printf("\n9. Armadura mágica: Agrega cinco dados de defensa.\t\t\t\t6 Tesoros\n");
+    printf("\n\n");
+    printf("\nEl Escudo de Madera no se puede usar en conjunto con el Escudo de Hierro.\nLa Espada y la Hacha guerrera no se pueden usar en conjunto.\nLa Armadura con Espinas y la Armadura Mágica no se pueden usar en conjunto.\n\n");
+
+    printf("\n¿Deseas comprar algún item?\nSeleccione una opción.\n1. Sí, me gustaría.\n2. No, por favor alejate.\n>>")
+    scanf("%d", &opcion);
+    getchar();
+
+    while(opcion == 1){
+
+        if(bolso[1] == 0){
+
+            printf("\nNot enough cash, stranger!\nTe quedaste sin tesoros.\n");
+            opcion = 0;
+        }
+
+        printf("\nWhat are you buying?\n¿Qué número del catálogo deseas comprar?\n");
+        scanf("%d", &catalogo);
+        getchar();
+
+        
+    }
+
+
+    return bolso;
+}
+
 int * batallar(int * bolso, int dadosAtaqueEnemigo, int dadosDefensaEnemigo, int dadosAtaqueJugador, int dadosDefensaJugador, int monstruo){
 // bolso = [pocion, tesoro, dadosAtaque, dadosDefensa, vida]
 
@@ -241,9 +332,6 @@ int * batallar(int * bolso, int dadosAtaqueEnemigo, int dadosDefensaEnemigo, int
     int ataqueJugador = 0;
     int defensaJugador = 0;
 
-    int resultadoJugador = 0;
-    int resultadoEnemigo = 0;
-
     int finalCombate = 0;
 
     while(finalCombate == 0){
@@ -257,7 +345,7 @@ int * batallar(int * bolso, int dadosAtaqueEnemigo, int dadosDefensaEnemigo, int
 
         for(lanzamiento = 0; lanzamiento < dadosAtaqueEnemigo; lanzamiento++){
 
-            printf("El enemigo lanzó un %d.\n ", dadoLanzadoAtaqueEnemigo[lanzamiento]);
+            printf("El enemigo lanzó un %d.\n", dadoLanzadoAtaqueEnemigo[lanzamiento]);
         }
 
         //Se buscan si existen '6' en los lanzamientos del enemigo.
@@ -280,7 +368,7 @@ int * batallar(int * bolso, int dadosAtaqueEnemigo, int dadosDefensaEnemigo, int
 
             for(lanzamiento = 0; lanzamiento < dadosDefensaJugador; lanzamiento++){
 
-                printf("Lanzaste un %d\n", dadoLanzadoDefensaJugador[lanzamiento]);
+                printf("Lanzaste un %d.\n", dadoLanzadoDefensaJugador[lanzamiento]);
             }
 
             defensaJugador = buscarSeis(dadoLanzadoDefensaJugador, dadosDefensaJugador);
@@ -322,17 +410,23 @@ int * batallar(int * bolso, int dadosAtaqueEnemigo, int dadosDefensaEnemigo, int
 
         for(lanzamiento = 0; lanzamiento < dadosAtaqueJugador; lanzamiento++){
 
-            printf("Lanzaste un %d \n", dadoLanzadoAtaqueJugador[lanzamiento]);
+            printf("Lanzaste un %d.\n", dadoLanzadoAtaqueJugador[lanzamiento]);
         }
 
         ataqueJugador = buscarSeis(dadoLanzadoAtaqueJugador, dadosAtaqueJugador);
+
+        if(ataqueJugador > 0){
+            printf("\nPreparas %d ataque(s).\n", ataqueJugador);
+        }
+
         if(ataqueJugador == 0){
 
-            printf("Atacas con todas tus fuerzas.\nTus esfuerzos son en vano, tu enemigo sigue en pie.\n");
+            printf("\nAtacas con todas tus fuerzas.\nTus esfuerzos son en vano, tu enemigo sigue en pie.\n");
         }
 
         presionarEnter();
         saltarMucho();
+
         if(ataqueJugador >= 1 && dadosDefensaEnemigo == 0){
 
             printf("Atacas con toda tu furia.\n¡Heriste mortalmente a tu enemigo!\nLa victoria es tuya.");
@@ -341,14 +435,45 @@ int * batallar(int * bolso, int dadosAtaqueEnemigo, int dadosDefensaEnemigo, int
         }
 
         if(dadosDefensaEnemigo > 0 && ataqueJugador >= 1){
+
+            printf("\nEl enemigo prepara su defensa...\n");
+            presionarEnter();
+            saltarMucho();
             for(instancia = 1; instancia <= dadosDefensaEnemigo; instancia++){
 
                 resultado = lanzarDado();
                 dadoLanzadoDefensaEnemigo[instancia - 1 ] = resultado;
             }
+
+            for(lanzamiento = 0; lanzamiento < dadosDefensaEnemigo; lanzamiento++){
+
+                printf("El enemigo ha lanzado un %d. \n", dadoLanzadoDefensaEnemigo[lanzamiento]);
+            }
+
+            defensaEnemigo = buscarSeis(dadoLanzadoDefensaEnemigo, dadosDefensaEnemigo);
+            printf("\nEl enemigo ha bloqueado %d ataque(s).\n", defensaEnemigo);
+
+            if((defensaEnemigo - ataqueJugador) < 0){
+
+                printf("\n\nEl enemigo ha caído en un profundo estupor.\nDespués de varias convulsiones queda inmóvil y no respira.\nLo has derrotado.\n\n");
+                presionarEnter();
+                finalCombate = 1;
+            }
+
+            if((defensaEnemigo - ataqueJugador) >= 0){
+                printf("\nEl enemigo ha esquivado todos tus ataques.\nLa pelea sigue...\n");
+                presionarEnter();
+                saltarMucho();
+            }
+            
         }
 
-}
+    }
+
+    bolso = beberPocion(bolso);
+
+    if(bolso[1] > 0)
+        bolso = comprar(bolso);
 
     saltarMucho();
     return bolso;
@@ -368,30 +493,26 @@ int * encontrarEntidad(int ** tablero, int * bolso){
         if(dado == 1){
             printf("\nEncontraste una poción.\n");
             bolso[0] += 1;
-            getchar();
             presionarEnter();
         }
 
         if(dado > 1 && dado < 5){
             printf("\nUn OGRO bloquea tu camino.\n'Pelea insecto'\n");
             printf("¿Listo para pelear?\n");
-            getchar();
             presionarEnter();
 
-            batallar(bolso, 9, 0, 1, 6, 1);
+            batallar(bolso, 1, 0, 1, 1, 1);
         }
 
         if(dado == 5){
             printf("\nUna mosca vuela de pared en pared...\n");
             printf("Debes seguir avanzando.\n");
-            getchar();
             presionarEnter();
         }
 
         if(dado == 6){
             printf("\nEncontraste una poción.\n");
             bolso[0] += 1;
-            getchar();
             presionarEnter();
         }
 
@@ -717,6 +838,7 @@ int imprimirTablero(int ** tablero){
 }
 
 int main(){
+    
     srand(time(NULL));
     int jugada;
     int * ubicacion;
