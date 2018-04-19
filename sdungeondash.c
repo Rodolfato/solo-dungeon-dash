@@ -165,12 +165,16 @@ int * encontrarJugador(int ** tablero){
     int filaEncontrada;
     int columnaEncontrada;
 
+    //C presenta 'Warnings' cuando se desea retornar una variable local mediante punteros al compilar el programa, por esta razón se le especifica el 'static'.
     static int ubicacion[2];
 
+    //Por cada fila existente en el arreglo.
     for(fila = 0; fila < 12; fila++){
+        //Por cada columna perteneciente a cada fila.
         for(columna = 0; columna < 9; columna++){
-
+            //Si dentro del arreglo se encuentra un '1', quiere decir que el jugador fue encontrado.
             if(tablero[fila][columna] == 1){
+                //Se procede a guardar la información de la ubicación del jugador en variables correspondientes.
                 filaEncontrada = fila;
                 columnaEncontrada = columna;
 
@@ -178,31 +182,35 @@ int * encontrarJugador(int ** tablero){
         }
     }
 
+    //En un arreglo creado con anterioridad se guardan las dos componentes encontradas que representan la ubicación actual del jugador.
     ubicacion[0] = filaEncontrada;
     ubicacion[1] = columnaEncontrada;
 
+    //Se retorna el arreglo que contiene las variables de interés.
     return ubicacion;
 
 }
 
 int * generarMochila(){
+/*  Se genera una variable de tipo entero 'static' para evitar 'Warnings' al compilar el programa.
+    El arreglo posee ocho lugares, uno por cada item perteneciente al juego */
     static int bolso[8];
 
-    //Pociones
+    //Pociones.
     bolso[0] = 0;
-    //Tesoros
+    //Tesoros.
     bolso[1] = 0;
-    //Dados de ataque
+    //Dados de ataque.
     bolso[2] = 1;
-    //Dados de defensa
+    //Dados de defensa.
     bolso[3] = 1;
-    //Vida
+    //Vida.
     bolso[4] = 17;
     //Arma
     bolso[5] = 0;
-    //Escudo
+    //Escudo.
     bolso[6] = 0;
-    //Armadura
+    //Armadura.
     bolso[7] = 0;
 
     return bolso;
@@ -229,6 +237,204 @@ int buscarSeis(int * dadosLanzados, int largo){
     return seisEnc;
 }
 
+void aleatorizarFrase(int id){
+
+    int frases;
+    int resultado;
+
+    frases = 7;
+
+    resultado = rand() % (frases);
+
+    while(resultado == 0 || resultado > frases){
+
+        resultado = rand() % (frases);
+    }
+
+    if(id == 1){
+
+        if(resultado == 1)
+            printf("\nSientes un fuerte dolor en tu cuerpo.\n");
+
+        if(resultado == 2)
+            printf("\nMiras sangre salir de alguna parte de tu cuerpo.\n");
+
+        if(resultado == 3)
+            printf("\nUn dolor punzante afecta tu abdomen.\n");
+
+        if(resultado == 4)
+            printf("\nNo tienes idea de lo que pasó porque cerraste los ojos antes que te llegara un ataque.\nUn gran dolor está presente en alguna parte de tu cuerpo.\n");
+
+        if(resultado == 5)
+            printf("\nLa adrenalina no te deja sentir dolor, pero sabes que algo anda muy mal.\n");
+
+        if(resultado == 6)
+            printf("\nSientes como tus fuerzas se debilitan\nTu onda vital disminuye debido a tus heridas.\n");
+        
+        else if(resultado > 6){
+
+            printf("\nSientes un fuerte dolor en tu cuerpo.\n");
+        }
+
+    }
+
+    if(id == 2){
+
+        if(resultado == 1)
+            printf("\nCon un poco de habilidad y bastante suerte logras bloquear todos los ataques del enemigo.\n");
+
+        if(resultado == 2)
+            printf("\nEl estruendo de tu escudo retumba en las paredes al bloquear todos los ataques del enemigo.\n");
+
+        if(resultado == 3)
+            printf("\nAstillas y chispas salen de tu escudo y espada al bloquear todos los ataques que el enemigo te lanzó.\n");
+
+        if(resultado == 4)
+            printf("\nTus manos tiemblan por la fuerza de los ataques recibidos, pero lograste bloquearlos todos.\n");
+
+        if(resultado == 5)
+            printf("\nHaciendo subir más y más la adrenalina, logras bloquear cada uno de los ataques recibidos.\n");
+
+        if(resultado == 6)
+            printf("\nA pesar de los esfuerzos del rival, con un solo dedo bloqueas todos los ataques del enemigo.\n");
+
+        else if(resultado > 6){
+
+            printf("\nCon un poco de habilidad y bastante suerte logras bloquear todos los ataques del enemigo.\n");
+        }
+    }
+
+    if(id == 3){
+
+        if(resultado == 1)
+            printf("\nEl enemigo resbala al atacarte y retrocede.\n");
+
+        if(resultado == 2)
+            printf("\nVes como el enemigo estrella su cabeza contra el suelo en un intento fallido de ataque.\n");
+
+        if(resultado == 3)
+            printf("\nParece que el enemigo tenía pensado atacarte, pero se detuvo en el momento más crucial.\n");
+
+        if(resultado == 4)
+            printf("\nNo tienes idea de lo que pasó porque cerraste los ojos al momento del ataque, pero el enemigo yace en el suelo por alguna razón.\nSe vuelve a parar con verguenza en la cara.\n");
+
+        if(resultado == 5)
+            printf("\nTe gustaría saber como una bestia tan torpe llegó viva hasta este punto.\nTu enemigo tropieza al avanzar y retrocede.\n");
+
+        if(resultado == 6)
+            printf("\nEl rival pierde el equilibrio al atacarte y falla.\n");
+
+        else if(resultado > 6){
+
+            printf("\nEl enemigo resbala al atacarte y retrocede.\n");
+        }
+    }
+
+    if(id == 4){
+
+        if(resultado == 1)
+            printf("\nSudando, levantas tu arma en un intento de ataque...\n");
+
+        if(resultado == 2)
+            printf("\nCon las peores intenciones del mundo, soplas tu arma y vas al ataque...\n");
+
+        if(resultado == 3)
+            printf("\nPrefieres no pensar en el final, solamente en el presente.\nCorres en busca del golpe mortal...\n");
+
+        if(resultado == 4)
+            printf("\nEs hora de atacar.\nCorres hacia el enemigo con tus peores intenciones...\n");
+
+        if(resultado == 5)
+            printf("\nSabes que lo que tienes que hacer es peligroso.\nTe sacas ese pudor de encima y corres al ataque...\n");
+
+        if(resultado == 6)
+            printf("\nReúnes tus fuerzas y arremetes contra el rival...\n");
+
+        else if(resultado > 6){
+
+            printf("\nSudando, levantas tu arma en un intento de ataque...\n");
+        }
+    }
+
+    if(id == 5){
+
+        if(resultado == 1)
+            printf("\nAtacas con todas tus fuerzas.\nTus esfuerzos son en vano, tu enemigo sigue en pie.\n");
+
+        if(resultado == 2)
+            printf("\nTus mejores esfuerzos han sido en vano.\nEl enemigo sigue vivo.\n");
+
+        if(resultado == 3)
+            printf("\nTe gustaría saber cómo no pudiste acabar la pelea con este ataque.\nEl enemigo sigue en pie y más furioso que antes.\n");
+
+        if(resultado == 4)
+            printf("\nUn balbuseo extraño sale del hocico de la bestia.\n¿Se estará burlando de ti?\nEl enemigo no ha sido afectado por tus ataques.\n");
+
+        if(resultado == 5)
+            printf("\nUn ronquido sale del estómago del enemigo.\nTus ataques fueron en vano, la bestia sigue en pie.\n");
+
+        if(resultado == 6)
+            printf("\nAtacas... pero la frase 'feto ingeniero' escrita con sangre en una pared te ha distraído y has fallado.\n¿Qué es 'feto'?\nEl enemigo sigue con vida.\n");
+
+        else if(resultado > 6){
+
+            printf("\nAtacas con todas tus fuerzas.\nTus esfuerzos son en vano, tu enemigo sigue en pie.\n");
+        }
+    }
+
+    if(id == 6){
+
+        if(resultado == 1)
+            printf("\nAtacas con toda tu furia.\n¡Heriste mortalmente a tu enemigo!\nLa victoria es tuya.");
+
+        if(resultado == 2)
+            printf("\nSangre por todos lados, en las paredes, en tus ropas...\nHeriste mortalmente a tu enemigo.\nHas ganado el combate.\n");
+
+        if(resultado == 3)
+            printf("\nTu arma derrocha grandes gotas de sangre.\nTu enemigo yace muerto frente a ti.\nLa batalla ha sido ganada.\n");
+
+        if(resultado == 4)
+            printf("\nGanaste el combate.\n¡Sigue avanzando y completa tu misión!\n");
+
+        if(resultado == 5)
+            printf("\nTripas, brazos, piernas, ojos... por todos lados...\nEn tu furia, descuartizaste a tu enemigo.\nGanaste el combate, pero... ¿valió la pena?\n");
+
+        if(resultado == 6)
+            printf("\nCon un lápiz y una libretita de color negro podría haber sido más sencillo.\nDe igual manera sales victorioso.\n");
+
+        else if(resultado > 6){
+
+            printf("\nAtacas con toda tu furia.\n¡Heriste mortalmente a tu enemigo!\nLa victoria es tuya.");
+        }
+    }
+
+    if(id == 7){
+
+        if(resultado == 1)
+            printf("\nEl enemigo ha esquivado todos tus ataques.\nLa pelea sigue...\n");
+
+        if(resultado == 2)
+            printf("\nTodos tus ataques han fallado.\nLa pelea DEBE continuar...\n");
+
+        if(resultado == 3)
+            printf("\nEl insecto ha esquivado todos tus ataques.\n¿Dónde está tu honor, basura?\nEl combate tiene que seguir...\n");
+
+        if(resultado == 4)
+            printf("\nTodos tus ataques fueron en vano.\nEl combate aún no termina...\n");
+
+        if(resultado = 5)
+            printf("\nCon un extraño baile el enemigo esquivó todos tus ataques.\nLa batalla aún no termina...\n");
+
+        if(resultado == 6)
+            printf("\nLa velocidad de tu enemigo ha sido muy superior y no has podido acertar.\nLa batalla persiste...\n");
+
+        else if(resultado > 6){
+
+            printf("\nEl enemigo ha esquivado todos tus ataques.\nLa pelea sigue...\n");
+        }
+    }
+}
+
 int * beberPocion(int * bolso){
 
     saltarMucho();
@@ -244,7 +450,6 @@ int * beberPocion(int * bolso){
             printf("\nPor favor ingrese una de las opciones válidas.\n¿Deseas consumir alguna(s)?\n1. Sí, por favor.\n2. No, gracias.\n>>");
             scanf("%d", &opcion);
             getchar();
-
         }
 
         while(opcion == 1){
@@ -269,22 +474,21 @@ int * beberPocion(int * bolso){
                     printf("\nLlegaste al máximo de vidas disponibles.");
                     presionarEnter();
                     opcion = 0;
-                }
-                
-                
+                } 
             }
 
             else{
+
                 printf("\n¿Desea consumir otra poción?\nSeleccione una opción:\n1. Sí, más por favor.\n2. No más, gracias.\n>>");
                 scanf("%d", &opcion);
                 getchar();
-            }
-            
+            }            
         }
     }
 
     return bolso;
 }
+
 void mostrarCatalogo(){
 
     printf("\n\n\t\t\t\tItem\t\t\t\t\t\tPrecio\n\n");
@@ -312,6 +516,7 @@ int * comprar(int * bolso){
     int opcion;
     int catalogo;
 
+    //Se le muestra el catálogo de items por pantalla al jugador.
     printf("Una figura encapuchada se te acerca.\nTiene aspecto enfermizo.\nHabla un idioma desconocido...\n\n'Got some rare things on sale, stranger!'\n\nTe muestra un extraño catálogo.\nCreo que te quiere vender algo...\n");
     presionarEnter();
     printf("\n\n\t\t\t\tItem\t\t\t\t\t\tPrecio\n\n");
@@ -329,69 +534,76 @@ int * comprar(int * bolso){
     printf("\n10. Volver a mostrar el catálogo.\n");
     printf("\n11. Salir.\n");
     printf("\nEl Escudo de Madera no se puede usar en conjunto con el Escudo de Hierro.\nLa Espada y el Hacha guerrera no se pueden usar en conjunto.\nLa Armadura con Espinas y la Armadura Mágica no se pueden usar en conjunto.\n\n");
-
+    //Se le pregunte si desea comprar algún item del catálogo.
     printf("\n¿Deseas comprar algún item?\nSeleccione una opción.\n1. Sí, me gustaría.\n2. No, por favor alejate.\n>>");
     scanf("%d", &opcion);
     getchar();
 
+    //Mientras la opción este fuera del rango adecuado, se le hace la pregunta nuevamente.
     while(opcion > 2){
 
         printf("\nElegir una de las opciones válidas.\n1. Quiero comprar.\n2. Quiero seguir avanzando.\n>>");
         scanf("%d", &opcion);
         getchar();
     }
-
+    //Mientras la opción sea "Sí", se le seguirá realizando la pregunta.
     while(opcion == 1){
 
+        //Si los tesoros guardados en el bolso se acaban, el periodo de compras termina.
         if(bolso[1] == 0){
 
-            printf("\nTe quedaste sin tesoros.\n");
+            printf("\n\n\nTe quedaste sin tesoros.\n\n\n");
             presionarEnter();
+            saltarMucho();
             opcion = 0;
+            catalogo = 11;
         }
+        //Caso contrario el periodo de compras continua.
+        else{
 
-        // bolso = [0pocion, 1tesoro, 2dadosAtaque, 3dadosDefensa, 4vida, 5arma, 6escudo, 7armadura]
-        printf("\n\n'What are you buying?'\n¿Qué número del catálogo deseas comprar?\n\nSi quieres ver de nuevo el catálogo, la opción es 10.\nRecuerda que la opción para salir es 11.\n>>");
-        scanf("%d", &catalogo);
-        getchar();
-
-        while(catalogo > 11){
-
-            printf("\n'Stranger, stranger... I have nothing of the sort!'\nPor favor elige una de las opciones válidas\nSi quieres ver de nuevo el catálogo, la opción es 10.\nRecuerda que la opción para salir es 11.\n>>");
+            printf("\n\n'What are you buying?'\n¿Qué número del catálogo deseas comprar?\n\nSi quieres ver de nuevo el catálogo, la opción es 10.\nRecuerda que la opción para salir es 11.\n>>");
             scanf("%d", &catalogo);
             getchar();
         }
+        //Mientras la opcion de compra contenida en el catalogo este fuera del rango, se le advierte el error y se le pregunta nuevamente.
+        while(catalogo > 11){
 
+            printf("\n\n'Stranger, stranger... I have nothing of the sort!'\nPor favor elige una de las opciones válidas\nSi quieres ver de nuevo el catálogo, la opción es 10.\nRecuerda que la opción para salir es 11.\n>>");
+            scanf("%d", &catalogo);
+            getchar();
+        }
+        //El primer item del catálogo: Escudo de Madera.
         if(catalogo == 1){
-
+            //Si no posee algún escudo en su bolso, se le agrega sin complicaciones.
             if(bolso[1] >= 1 && bolso[6] == 0){
-                printf("\n'Hehehehe, thank you'.\nHas adquirido el Escudo de Madera.\nSe ha sumado 1 dado a tu defensa.\n");
+                printf("\n\n'Hehehehe, thank you'.\nHas adquirido el Escudo de Madera.\nSe ha sumado 1 dado a tu defensa.\n");
                 bolso[3] += 1;
                 bolso[6] = 1;
                 bolso[1] -= 1;
                 presionarEnter();
 
             }
-
+            //Si ya posee el Escudo de Madera, se le advierte que más no puede llevar.
             else if(bolso[1] >= 1 && bolso[6] == 1){
-                printf("\n'Can't carry no more, stranger!'\nYa posees el Escudo de Madera.\n");
+                printf("\n\n'Can't carry no more, stranger!'\nYa posees el Escudo de Madera.\n");
                 presionarEnter();
             }
-
+            //Si ya posee el Escudo de Hierro, se le advierte, no se le deja adquirir el Escudo de Madera y el menú sigue.
             else if(bolso[1] >= 1 && bolso[6] == 2){
-                printf("\nYa posees el Escudo de Hierro.\n");
+                printf("\n\nYa posees el Escudo de Hierro.\n");
                 presionarEnter();
             }
-
+            //Si los tesoros son insuficientes para la compra del item, se le advierte y sigue.
             else{
-                printf("\n'Not enough cash, stranger'.\nTesoros insuficientes.\n");
+                printf("\n\n'Not enough cash, stranger'.\nTesoros insuficientes.\n");
                 presionarEnter();
             }
         }
 
         if(catalogo == 2){
 
-            printf("\n'A wise choice, mate!'\nUna poción fue sumada a tu mochila.\n");
+            //Si tiene tesoros suficientes, la compra es exitosa y las pociones son añadidas al bolso del jugador.
+            printf("\n\n'A wise choice, mate!'\nUna poción fue sumada a tu mochila.\n");
             bolso[0] += 1;
             bolso[1] -= 1;
             presionarEnter();
@@ -399,15 +611,15 @@ int * comprar(int * bolso){
 
         if(catalogo == 3){
             if(bolso[1] >= 2 && bolso[6] == 0){
-                printf("\nAdquiriste el Escudo de Hierro.\nSe han sumado 2 dados a tu defensa.\n");
+                printf("\n\nAdquiriste el Escudo de Hierro.\nSe han sumado 2 dados a tu defensa.\n");
                 bolso[3] += 2;
                 bolso[6] = 2;
                 bolso[1] -= 2;
                 presionarEnter();
             }
-
+            //Si al comprar el Escudo de Hierro ya se posee el Escudo de Madera, éste último es reemplazado por el primero y se le advierte de las consecuencias de la compra.
             else if(bolso[1] >= 2 && bolso[6] == 1){
-                printf("\n'Excellent choice, stranger'.\nReemplazaste tu Escudo de Madera por uno de Hierro.\nSe han sumado 2 dados a tu defensa, pero perdiste la bonificación del Escudo de Madera.\n");
+                printf("\n\n'Excellent choice, stranger'.\nReemplazaste tu Escudo de Madera por uno de Hierro.\nSe han sumado 2 dados a tu defensa, pero perdiste la bonificación del Escudo de Madera.\n");
                 bolso[3] -= 1;
                 bolso[3] += 2;
                 bolso[6] = 2;
@@ -417,20 +629,20 @@ int * comprar(int * bolso){
 
             else if(bolso[1] >= 2 && bolso[6] == 2){
 
-                printf("\n'Can't carry no more, stranger!'\nYa tienes el Escudo de Hierro.\n");
+                printf("\n\n'Can't carry no more, stranger!'\nYa tienes el Escudo de Hierro.\n");
                 presionarEnter();
             }
 
             else{
 
-                printf("\n'Not enough cash, stranger'.\nTesoros insuficientes.\n");
+                printf("\n\n'Not enough cash, stranger'.\nTesoros insuficientes.\n");
                 presionarEnter();
             }
         }
 
         if(catalogo == 4){
             if(bolso[1] >= 2){
-                printf("\n'Stranger, stranger!'.\nTres pociones han sido añadidas a tu mochila.\n");
+                printf("\n\n'Stranger, stranger!'.\nTres pociones han sido añadidas a tu mochila.\n");
                 bolso[0] += 3;
                 bolso[1] -= 2;
                 presionarEnter();
@@ -438,7 +650,7 @@ int * comprar(int * bolso){
 
             else{
 
-                printf("\n'Not enough cash, stranger'.\nTesoros insuficientes.\n");
+                printf("\n\n'Not enough cash, stranger'.\nTesoros insuficientes.\n");
                 presionarEnter();
             }
         }
@@ -447,7 +659,7 @@ int * comprar(int * bolso){
 
             if(bolso[1] >= 3 && bolso[5] == 0){
 
-                printf("\nAdquiriste la Espada.\nSe ha sumado 1 dado de ataque.\n");
+                printf("\n\nAdquiriste la Espada.\nSe ha sumado 1 dado de ataque.\n");
                 bolso[2] += 1;
                 bolso[1] -= 3;
                 bolso[5] = 1;
@@ -456,19 +668,19 @@ int * comprar(int * bolso){
 
             else if(bolso[1] >= 3 && bolso[5] == 1){
 
-                printf("\n'Can't carry no more, stranger!'\nYa posees la Espada.\n");
+                printf("\n\n'Can't carry no more, stranger!'\nYa posees la Espada.\n");
                 presionarEnter();
             }
 
             else if(bolso[1] >= 3 && bolso[5] == 2){
 
-                printf("\nYa posees el Hacha Guerrera.\n");
+                printf("\n\nYa posees el Hacha Guerrera.\n");
                 presionarEnter();
             }
 
             else{
 
-                printf("\n'Not enough cash, stranger'.\nTesoros insuficientes.\n");
+                printf("\n\n'Not enough cash, stranger'.\nTesoros insuficientes.\n");
                 presionarEnter();
             }
         }
@@ -477,14 +689,14 @@ int * comprar(int * bolso){
 
             if(bolso[1] >= 3){
 
-                printf("\n'Wise choice, mate!'\nSeis pociones fueron sumadas a tu arsenal.\n");
+                printf("\n\n'Wise choice, mate!'\nSeis pociones fueron sumadas a tu arsenal.\n");
                 bolso[0] += 6;
                 bolso[1] -= 3;
                 presionarEnter();
             }
             else{
 
-                printf("\n'Not enough cash, stranger'.\nTesoros insuficientes.\n");
+                printf("\n\n'Not enough cash, stranger'.\nTesoros insuficientes.\n");
                 presionarEnter();
             }
         }
@@ -493,7 +705,7 @@ int * comprar(int * bolso){
 
             if(bolso[1] >= 4 && bolso[5] == 0){
 
-                printf("\n'Stranger, stranger! Now that's a weapon.\nAdquiriste el Hacha Guerrera.\nSe añadieron dos dados de ataque.\n");
+                printf("\n\n'Stranger, stranger! Now that's a weapon.'\nAdquiriste el Hacha Guerrera.\nSe añadieron dos dados de ataque.\n");
                 bolso[2] += 2;
                 bolso[5] = 2;
                 bolso[1] -= 4;
@@ -502,7 +714,7 @@ int * comprar(int * bolso){
 
             else if(bolso[1] >= 4 && bolso[5] == 1){
 
-                printf("\n'Stranger, stranger! Now that's a weapon.\nReemplazaste tu Espada por el Hacha Guerrera.\nSe añadieron dos dados de ataque, pero perdiste el dado de ataque añadido por la Espada.\n");
+                printf("\n\n'Stranger, stranger! Now that's a weapon.\nReemplazaste tu Espada por el Hacha Guerrera.\nSe añadieron dos dados de ataque, pero perdiste el dado de ataque añadido por la Espada.\n");
                 bolso[2] -= 1;
                 bolso[5] = 2;
                 bolso[1] -= 4;
@@ -512,13 +724,13 @@ int * comprar(int * bolso){
 
             else if(bolso[1] >= 4 && bolso[5] == 2){
 
-                printf("\n'Stranger, stranger! Can't carry no more!'\nYa tienes el Hacha Guerrera\n");
+                printf("\n\n'Stranger, stranger! Can't carry no more!'\nYa tienes el Hacha Guerrera\n");
                 presionarEnter();
             }
 
             else{
 
-                printf("\n'Not enough cash, stranger'.\nTesoros insuficientes.\n");
+                printf("\n\n'Not enough cash, stranger'.\nTesoros insuficientes.\n");
                 presionarEnter();
             }
         }
@@ -527,7 +739,7 @@ int * comprar(int * bolso){
 
             if(bolso[1] >= 5 && bolso[7] == 0){
 
-                printf("\n'STRANGER! HA, HA! What do you need that for? Going hunting an elephant?'\nCompraste la Armadura con Espinas\nAdquiriste 2 dados de ataque y 1 de defensa.\n");
+                printf("\n\n'STRANGER! HA, HA! What do you need that for? Going hunting an elephant?'\nCompraste la Armadura con Espinas.\nAdquiriste 2 dados de ataque y 1 de defensa.\n");
                 bolso[2] += 2;
                 bolso[3] += 1;
                 bolso[7] = 1;
@@ -537,20 +749,20 @@ int * comprar(int * bolso){
 
             else if(bolso[1] >= 5 && bolso[7] == 1){
 
-                printf("\nYa posees la Armadura con Espinas\n");
+                printf("\n\nYa posees la Armadura con Espinas.\n");
                 presionarEnter();
 
             }
 
             else if(bolso[1] >= 5 && bolso[7] == 2){
 
-                printf("\nYa posees la Armadura Mágica\n");
+                printf("\n\nYa posees la Armadura Mágica.\n");
                 presionarEnter();
             }
 
             else{
 
-                printf("\n'Not enough cash, stranger'.\nTesoros insuficientes.\n");
+                printf("\n\n'Not enough cash, stranger'.\nTesoros insuficientes.\n");
                 presionarEnter();
             }
 
@@ -560,7 +772,7 @@ int * comprar(int * bolso){
 
             if(bolso[1] >= 6 && bolso[7] == 0){
                 
-                printf("\n'A choice of an avid armor collector!'\nCompraste la Armadura Mágica.\nSe han añadido 5 dados de defensa a tu arsenal.\n");
+                printf("\n\n'A choice of an avid armor collector!'\nCompraste la Armadura Mágica.\nSe han añadido 5 dados de defensa a tu arsenal.\n");
                 bolso[3] += 5;
                 bolso[1] -= 6;
                 bolso[7] = 2;
@@ -569,7 +781,7 @@ int * comprar(int * bolso){
 
             else if(bolso[1] >= 6 && bolso[7] == 1){
 
-                printf("\n'A choice of an avid armor collector!'\nLa Armadura Mágica reemplazó tu Armadura con Espinas.\nSe han añadido 5 dados de defensa a tu arsenal, pero perdiste la bonificación de la Armadura con Espinas.\n");
+                printf("\n\n'A choice of an avid armor collector!'\nLa Armadura Mágica reemplazó tu Armadura con Espinas.\nSe han añadido 5 dados de defensa a tu arsenal, pero perdiste la bonificación de la Armadura con Espinas.\n");
                 bolso[2] -= 2;
                 bolso[3] -= 1;
                 bolso[3] += 5;
@@ -580,7 +792,13 @@ int * comprar(int * bolso){
 
             else if(bolso[1] >= 6 && bolso[7] == 2){
 
-                printf("\n'STRANGER! Can NOT carry no more!'\nYa posees la Armadura Mágica.\n");
+                printf("\n\n'STRANGER! Can NOT carry no more!'\nYa posees la Armadura Mágica.\n");
+                presionarEnter();
+            }
+
+            else{
+
+                printf("\n\n'Not enough cash, stranger'.\nTesoros insuficientes.\n");
                 presionarEnter();
             }
 
@@ -591,6 +809,7 @@ int * comprar(int * bolso){
         }
 
         if(catalogo == 11){
+            saltarMucho();
             printf("\n'Come back anytime!'\n");
             presionarEnter();
             opcion = 2;
@@ -665,9 +884,13 @@ int * batallar(int * bolso, int dadosAtaqueEnemigo, int dadosDefensaEnemigo, int
 
             printf("\nBloqueaste %d ataque(s).\n", defensaJugador);
 
+            //Si la resta de la cantidad de '6' lanzados en la defensa del jugador con la cantidad de '6' en el ataque del enemigo es negativa, el jugador pierde una vida.
             if((defensaJugador - ataqueEnemigo) < 0){
-                //Si la resta de la cantidad de '6' lanzados en la defensa del jugador con la cantidad de '6' en el ataque del enemigo es negativa, el jugador pierde una vida.
-                printf("\nSientes un fuerte dolor en tu cuerpo.\nPerdiste %d vida(s).\n", -1*(defensaJugador - ataqueEnemigo));
+                
+
+                aleatorizarFrase(1); // FRASE RANDOMIZABLE 1
+
+                printf("Perdiste %d vida(s).\n", -1*(defensaJugador - ataqueEnemigo));
                 //Se le restan las vidas correspondiente al jugador.
                 bolso[4] += (defensaJugador - ataqueEnemigo);
                 printf("Te quedan %d vidas.\n", bolso[4]);
@@ -677,7 +900,7 @@ int * batallar(int * bolso, int dadosAtaqueEnemigo, int dadosDefensaEnemigo, int
 
             if((defensaJugador - ataqueEnemigo) >= 0){
 
-                printf("\nCon un poco de habilidad y bastante suerte logras bloquear todos los ataques del enemigo.\n");
+                aleatorizarFrase(2); // ID 2 de frase.
                 presionarEnter();
                 saltarMucho();
             }            
@@ -685,10 +908,10 @@ int * batallar(int * bolso, int dadosAtaqueEnemigo, int dadosDefensaEnemigo, int
 
         else if(ataqueEnemigo == 0){
 
-            printf("\nEl enemigo resbala al atacarte y retrocede.\n");
+            aleatorizarFrase(3); // FRASE RANDOMIZABLE 3
         }
 
-        printf("Sudando, levantas tu arma en un intento de ataque...\n");
+        aleatorizarFrase(4); // FRASE RANDOMIZABLE 4
         presionarEnter();
         saltarMucho();
 
@@ -711,7 +934,7 @@ int * batallar(int * bolso, int dadosAtaqueEnemigo, int dadosDefensaEnemigo, int
 
         if(ataqueJugador == 0){
 
-            printf("\nAtacas con todas tus fuerzas.\nTus esfuerzos son en vano, tu enemigo sigue en pie.\n");
+            aleatorizarFrase(5); // FRASE RANDOMIZABLE 5
         }
 
         presionarEnter();
@@ -719,7 +942,7 @@ int * batallar(int * bolso, int dadosAtaqueEnemigo, int dadosDefensaEnemigo, int
 
         if(ataqueJugador >= 1 && dadosDefensaEnemigo == 0){
 
-            printf("Atacas con toda tu furia.\n¡Heriste mortalmente a tu enemigo!\nLa victoria es tuya.");
+            aleatorizarFrase(6); // FRASE RANDOMIZABLE 6
             presionarEnter();
             finalCombate = 1;
         }
@@ -751,7 +974,7 @@ int * batallar(int * bolso, int dadosAtaqueEnemigo, int dadosDefensaEnemigo, int
             }
 
             if((defensaEnemigo - ataqueJugador) >= 0){
-                printf("\nEl enemigo ha esquivado todos tus ataques.\nLa pelea sigue...\n");
+                aleatorizarFrase(7); // FRASE RANDOMIZABLE 7
                 presionarEnter();
                 saltarMucho();
             }
@@ -840,7 +1063,7 @@ int * encontrarEntidad(int ** tablero, int * bolso){
         }
 
         if(dado == 5){
-            printf("\nEl olor a descomposición casi no te deja avanzar...\nTu sentido del orgullo te obliga a seguir...\n");
+            printf("\nEl olor a descomposición casi no te deja avanzar.\nTu sentido del orgullo te obliga a seguir...\n");
             presionarEnter();
         }
 
@@ -859,7 +1082,7 @@ int * encontrarEntidad(int ** tablero, int * bolso){
 
         if(dado == 1){
             printf("\nUn OGRO te mira al pasar.\nTu presencia no le agrada...\n");
-            printf("\nA ti tampoco te agrada\nDecides matarlo\n");
+            printf("\nA ti tampoco te agrada.\nDecides matarlo.\n");
             presionarEnter();
             bolso = batallar(bolso, 1, 0, bolso[2], bolso[3], 1);
         }
@@ -874,7 +1097,7 @@ int * encontrarEntidad(int ** tablero, int * bolso){
 
         if(dado == 3){
             printf("\nUn ESQUELETO saca sus armas al verte pasar...\n");
-            printf("\nHaces lo mismo y te preparas para la batalla\n");
+            printf("\nHaces lo mismo y te preparas para la batalla.\n");
             presionarEnter();
             bolso = batallar(bolso, 3, 0, bolso[2], bolso[3], 3);
         }
@@ -986,7 +1209,103 @@ int * encontrarEntidad(int ** tablero, int * bolso){
             printf("\n¿Qué es este olor tan extraño?\nCon un tremendo disgusto decides seguir adelante...\n");
             presionarEnter();
         }
+    }
+
+    if(ubicacion[0] == 5){
+
+        dado = lanzarDado();
+
+        if(dado == 1){
+
+            printf("\nUna bestia horripilante aparece frente a ti.\nSu cuerpo no tiene piel ni carne.\nESQUELETO se prepara para atacarte.\n");
+            presionarEnter();
+            bolso = batallar(bolso, 3, 0, bolso[2], bolso[3], 3);
+        }
+
+        if(dado == 2){
+
+            printf("\nUn asqueroso GUERRERO horriblemente deformado se acerca a tu posición.\n¿Pelearás?\n");
+            presionarEnter();
+            bolso = batallar(bolso, 4, 0, bolso[2], bolso[3], 4);
+        }
+
+        if(dado == 3){
+
+            printf("\nA lo lejos escuchas el batir de unas alas gigantescas.\nUna especie de MURCIÉLAGO vuela a gran velocidad hacia tu posición.\n¡PREPÁRATE PARA ASESINARLO!\n");
+            presionarEnter();
+            bolso = batallar(bolso, 5, 0, bolso[2], bolso[3], 5);
+        }
+
+        if(dado == 4){
+
+            printf("\n¿Qué tipo de ogro es éste?\n¡TIENE UN OJO EN LA MITAD DE SU FRENTE!\nEl CÍCLOPE arremete contra ti.\nSacas tus armas y te preparas para el combate\n");
+            presionarEnter();
+            bolso = batallar(bolso, 6, 0, bolso[2], bolso[3], 6);
+        }
+
+        if(dado == 5){
+
+            printf("\nSientes un fuerte golpe en la parte superior de tu cabeza.\nCae al lado tuyo una barra metálica de color plateado.\nAdquiriste un nuevo tesoro.\n");
+            bolso[1] += 1;
+        }
+
+        if(dado == 6){
+
+            printf("\nUna especie de engrudo es contenido dentro de una botella de mediano espesor.\nLa guardas en tu morral.\nUna poción ha sido sumada a tu arsenal.\n");
+            bolso[0] += 1;
+        }
+    }
+
+    if(ubicacion[0] == 4){
+
+        dado = lanzarDado();
+
+        if(dado == 1){
+
+            printf("\nUn GUERRERO con el la cara llena de cicatrices corre hacia ti.\nDesenvainas tu espada, preparas tu escudo.\n");
+            presionarEnter();
+            bolso = batallar(bolso, 4, 0, bolso[2], bolso[3], 4);
+        }
+
+        if(dado == 2){
+
+            printf("\n¿Qué ruido es ese?\nUn MURCIÉLAGO de tamaño considerable vuela en tu dirección\n¡PELEA!\n");
+            presionarEnter();
+            bolso = batallar(bolso, 5, 0, bolso[2], bolso[3], 5);
+        }
+
+        if(dado == 3){
+
+            printf("\nEste CÍCLOPE ha perdido todos sus ojos excepto el de su frente.\nQué bestia más fea.\nTe preparas para la batalla.\n");
+            presionarEnter();
+            bolso = batallar(bolso, 6, 0, bolso[2], bolso[3], 6);
+        }
+
+        if(dado == 4){
+
+            printf("\nU-Un ELFO... pero su piel... es de color negro...\nHa sido corrompido por poderes oscuros.\nUn ELFO OSCURO arremente contra ti.\n");
+            presionarEnter();
+            bolso = batallar(bolso, 7, 0, bolso[2], bolso[3], 7);
+        }
+
+        if(dado == 5){
+
+            printf("\nMiras brillar algo incrustado en la pared.\nUtilizando el filo de tu espada logras arrancarlo.\nUna preciosa gema de color esmeralda cae en tu mano.\nAdquiriste un nuevo tesoro.");
+            bolso[1] += 1;
+            presionarEnter();  
+        }
+
+        if(dado == 6){
+
+            printf("\n¡Qué olor más repugnante!\nTe tapas los orificios de tu nariz y decides avanzar...\n");
+            presionarEnter();
+        }
     }   
+
+    if(ubicacion[0] == 3){
+
+
+    }
 
     return bolso;
 }
@@ -1012,7 +1331,6 @@ int validarJugada(int ** tablero, int jugada, int fila, int columna){
             printf("\nJugada inválida.\n");
             jugada = ingresarJugada();
             jugada = validarJugada(tablero, jugada, fila, columna);
-
         }
     }
 
@@ -1035,7 +1353,6 @@ int validarJugada(int ** tablero, int jugada, int fila, int columna){
             printf("\nJugada inválida\n");
             jugada = ingresarJugada();
             jugada = validarJugada(tablero, jugada, fila, columna);
-
         }
     }
 
@@ -1058,7 +1375,6 @@ int validarJugada(int ** tablero, int jugada, int fila, int columna){
             printf("\nJugada inválida\n");
             jugada = ingresarJugada();
             jugada = validarJugada(tablero, jugada, fila, columna);
-
         }
     }
 
@@ -1092,7 +1408,6 @@ int validarJugada(int ** tablero, int jugada, int fila, int columna){
             printf("\nJugada inválida\n");
             jugada = ingresarJugada();
             jugada = validarJugada(tablero, jugada, fila, columna);
-
         }
     }
 
