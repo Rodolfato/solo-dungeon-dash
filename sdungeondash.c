@@ -202,9 +202,9 @@ int * generarMochila(){
     //Tesoros.
     bolso[1] = 0;
     //Dados de ataque.
-    bolso[2] = 100000;
+    bolso[2] = 100;
     //Dados de defensa.
-    bolso[3] = 100000;
+    bolso[3] = 100;
     //Vida.
     bolso[4] = 17;
     //Arma
@@ -1758,7 +1758,7 @@ int * encontrarEntidad(int ** tablero, int * bolso){
 
             aleatorizarFrase(13);
             presionarEnter();
-            bolso = batallar(bolso, 6, 0, bolso[2], bolso[3], 6); 
+             
         }
 
         if(dado == 3){
@@ -1777,10 +1777,133 @@ int * encontrarEntidad(int ** tablero, int * bolso){
 
         if(dado == 5){
 
+            aleatorizarFrase(21);
+            presionarEnter();
+            bolso[1] += 1;
+        }
 
+        if(dado == 6){
+
+            aleatorizarFrase(22);
+            presionarEnter();
+        }
+    }
+
+    if(ubicacion[0] == 2){
+
+        dado = lanzarDado();
+
+        if(dado == 1){
+
+            aleatorizarFrase(13);
+            presionarEnter();
+            bolso = batallar(bolso, 6, 0, bolso[2], bolso[3], 6);
+        }
+
+        if(dado == 2){
+
+            aleatorizarFrase(14);
+            presionarEnter();
+            bolso = batallar(bolso, 7, 0, bolso[2], bolso[3], 7);
 
         }
-    }   
+
+        if(dado == 3){
+
+            aleatorizarFrase(15);
+            presionarEnter();
+            bolso = batallar(bolso, 8, 0, bolso[2], bolso[3], 8);
+        }
+
+        if(dado == 4){
+
+            aleatorizarFrase(16);
+            presionarEnter();
+            bolso = batallar(bolso, 9, 0, bolso[2], bolso[3], 9);
+        }
+
+        if(dado == 5){
+
+            aleatorizarFrase(21);
+            presionarEnter();
+            bolso[1] += 1;  
+        }
+
+        if(dado == 6){
+
+            aleatorizarFrase(20);
+            presionarEnter();
+            bolso[0] += 1;
+        }
+    }
+
+    if(ubicacion[0] == 1){
+
+        if(dado == 1){
+
+            aleatorizarFrase(14);
+            presionarEnter();
+            bolso = batallar(bolso, 7, 0, bolso[2], bolso[3], 7);
+        }
+
+        if(dado == 2){
+
+            aleatorizarFrase(15);
+            presionarEnter();
+            bolso = batallar(bolso, 8, 0, bolso[2], bolso[3], 8);
+        }
+
+        if(dado == 3){
+
+            aleatorizarFrase(16);
+            presionarEnter();
+            bolso = batallar(bolso, 9, 0, bolso[2], bolso[3], 9);
+        }
+
+        if(dado == 4){
+
+            aleatorizarFrase(666);
+            presionarEnter();
+            bolso = batallar(bolso, 10, 0, bolso[2], bolso[3], 10);
+        }
+
+        if(dado == 5){
+
+            aleatorizarFrase(21);
+            presionarEnter();
+            bolso[1] += 1;
+        }
+
+        if(dado == 6){
+
+            aleatorizarFrase(22);
+            presionarEnter();
+        }
+    }
+    
+    if(ubicacion[0] == 0){
+
+        printf("\n\nSientes el ambiente cambiar...\nNunca antes habías sentido algo por el estilo...\nLa penumbra te encapsula más y más.\n");
+        printf("\nSientes tus parpados abrirse para poder captar la poca claridad restante...\n");
+        printf("\nEmpieza a correr sangre por las paredes que te rodean...\n");
+        printf("\nUna figura encapuchada aparece frente a ti...\nMuestra su rostro...\nEs horriblemente pálido y sus ojos rojos te abruman con miedo...\n");
+        printf("\nUn grito irreconocible llena tus oidos de terror...\n");
+        presionarEnter();
+        saltarMucho();
+        printf("\nÉsta bestia es la que empezó toda esta tragedia...\n");
+        printf("\nCamina lentamente hacia a ti...\n");
+        printf("\nSacas tus armas...\nY te preparas para el COMBATE FINAL.\n");
+        presionarEnter();
+        saltarMucho();
+        printf("\nTodo lo que has pasado hasta el momento...\n");
+        printf("\nHora de demostrar lo que realmente vales.\n");
+        printf("\nHora de matar a DRÁCULA.\n");
+        presionarEnter();
+        saltarMucho();
+
+        bolso = batallar(bolso, 9, 9, bolso[2], bolso[3], 9);
+
+    }
 
     return bolso;
 }
