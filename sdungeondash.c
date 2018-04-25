@@ -1478,7 +1478,7 @@ int * encontrarEntidad(int ** tablero, int * bolso){
 
         if(dado == 6){
             aleatorizarFrase(21);
-            bolso[0] += 1;
+            bolso[1] += 1;
             presionarEnter();
         }
 
