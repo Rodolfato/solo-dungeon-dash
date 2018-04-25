@@ -202,9 +202,9 @@ int * generarMochila(){
     //Tesoros.
     bolso[1] = 0;
     //Dados de ataque.
-    bolso[2] = 100;
+    bolso[2] = 1;
     //Dados de defensa.
-    bolso[3] = 100;
+    bolso[3] = 1;
     //Vida.
     bolso[4] = 17;
     //Arma
@@ -272,7 +272,7 @@ void aleatorizarFrase(int id){
         if(resultado == 6)
             printf("\nSientes como tus fuerzas se debilitan.\nTu onda vital disminuye debido a tus heridas.\n");
         
-        else if(resultado > 6){
+        else if(resultado > frases){
 
             printf("\nSientes un fuerte dolor en tu cuerpo.\n");
         }
@@ -308,7 +308,7 @@ void aleatorizarFrase(int id){
         if(resultado == 6)
             printf("\nA pesar de los esfuerzos del rival, con un solo dedo bloqueas todos los ataques del enemigo.\n");
 
-        else if(resultado > 6){
+        else if(resultado > frases){
 
             printf("\nCon un poco de habilidad y bastante suerte logras bloquear todos los ataques del enemigo.\n");
         }
@@ -343,7 +343,7 @@ void aleatorizarFrase(int id){
         if(resultado == 6)
             printf("\nEl rival pierde el equilibrio al atacarte y falla.\n");
 
-        else if(resultado > 6){
+        else if(resultado > frases){
 
             printf("\nEl enemigo resbala al atacarte y retrocede.\n");
         }
@@ -378,7 +378,7 @@ void aleatorizarFrase(int id){
         if(resultado == 6)
             printf("\nReúnes tus fuerzas y arremetes contra el rival...\n");
 
-        else if(resultado > 6){
+        else if(resultado > frases){
 
             printf("\nSudando, levantas tu arma en un intento de ataque...\n");
         }
@@ -413,7 +413,7 @@ void aleatorizarFrase(int id){
         if(resultado == 6)
             printf("\nAtacas... pero la frase 'feto ingeniero' escrita con sangre en una pared te ha distraído y has fallado.\n¿Qué es 'feto'?\nEl enemigo sigue con vida.\n");
 
-        else if(resultado > 6){
+        else if(resultado > frases){
 
             printf("\nAtacas con todas tus fuerzas.\nTus esfuerzos son en vano, tu enemigo sigue en pie.\n");
         }
@@ -448,7 +448,7 @@ void aleatorizarFrase(int id){
         if(resultado == 6)
             printf("\nCon un lápiz y una libretita de color negro podría haber sido más sencillo.\nDe igual manera sales victorioso.\n");
 
-        else if(resultado > 6){
+        else if(resultado > frases){
 
             printf("\nAtacas con toda tu furia.\n¡Heriste mortalmente a tu enemigo!\nLa victoria es tuya.");
         }
@@ -483,7 +483,7 @@ void aleatorizarFrase(int id){
         if(resultado == 6)
             printf("\nLa velocidad de tu enemigo ha sido muy superior y no has podido acertar.\nLa batalla persiste...\n");
 
-        else if(resultado > 6){
+        else if(resultado > frases){
             printf("\nEl enemigo ha esquivado todos tus ataques.\nLa pelea sigue...\n");
         }
     }
@@ -512,7 +512,7 @@ void aleatorizarFrase(int id){
         if(resultado == 4)
             printf("\nUn OGRO horriblemente deformado cruza sus cejas al verte pasar...\nCriatura del inframundo, muere.\n");
 
-        else if(resultado > 4){
+        else if(resultado > frases){
             printf("\nUn OGRO bloquea tu camino.\n'Pelea insecto'\n¿Listo para pelear?\n");
         }
     }
@@ -541,7 +541,7 @@ void aleatorizarFrase(int id){
         if(resultado == 4)
             printf("\nLos ojos de un peludo LOBO brillan en la penumbra.\nSientes la adrenalina subir y te preparas para eliminarlo.\n");
 
-        else if(resultado > 4){
+        else if(resultado > frases){
             printf("\nVes un LOBO marcar su territorio.\nTu presencia no le es grata...\n¡Cuidado con la orina!\n");            
         }
     }
@@ -570,7 +570,7 @@ void aleatorizarFrase(int id){
         if(resultado == 4)
             printf("\nUna bestia horripilante aparece frente a ti.\nSu cuerpo no tiene piel ni carne.\nESQUELETO se prepara para atacarte.\n");
 
-        else if(resultado > 4){
+        else if(resultado > frases){
             printf("\nUn ESQUELETO saca sus armas al verte pasar...\nHaces lo mismo y te preparas para la batalla.\n");
 
         }
@@ -600,7 +600,7 @@ void aleatorizarFrase(int id){
         if(resultado == 4)
             printf("\nUn GUERRERO con el la cara llena de cicatrices corre hacia ti.\nDesenvainas tu espada, preparas tu escudo.\n");
 
-        else if(resultado > 4){
+        else if(resultado > frases){
             printf("\nEscuchas balbuseos irreproducibles\nEs un GUERRERO gordo y encorvado.\n\nBestia endemoniada...\n¡MÁTALO!\n");
 
         }
@@ -627,7 +627,7 @@ void aleatorizarFrase(int id){
         if(resultado == 3)
             printf("\n¿Qué ruido es ese?\nUn MURCIÉLAGO de tamaño considerable vuela en tu dirección.\n¡PELEA!\n");
 
-        else if(resultado > 3){
+        else if(resultado > frases){
 
             printf("\n¿Qué ruido es ese?\nUn MURCIÉLAGO de tamaño considerable vuela en tu dirección\n¡PELEA!\n");
         }
@@ -651,7 +651,7 @@ void aleatorizarFrase(int id){
         if(resultado == 2)
             printf("\nEste CÍCLOPE ha perdido todos sus ojos excepto el de su frente.\nQué bestia más fea.\nTe preparas para la batalla.\n");
 
-        else if(resultado > 3){
+        else if(resultado > frases){
 
             printf("\nEste CÍCLOPE ha perdido todos sus ojos excepto el de su frente.\nQué bestia más fea.\nTe preparas para la batalla.\n");
         }
@@ -676,7 +676,7 @@ void aleatorizarFrase(int id){
         if(resultado == 2)
             printf("\n¿Un elfo?\n¿Qué le paso a su piel...?\nELFO OSCURO arremete contra ti.\n");
 
-        else if(resultado > 2){
+        else if(resultado > frases){
 
             printf("\nU-Un ELFO... pero su piel... es de color negro...\nHa sido corrompido por poderes oscuros.\nUn ELFO OSCURO arremente contra ti.\n");
         }
@@ -700,7 +700,7 @@ void aleatorizarFrase(int id){
         if(resultado == 2)
             printf("\nEste esqueleto tiene un aspecto más forma que los que has encontrado antes.\nLORD ESQUELETO persigue tu pasar.\nHora del combate.\n");
 
-        else if(resultado > 2){
+        else if(resultado > frases){
 
             printf("\n¿Por qué este esqueleto tiene una capa?\n¿Y un casco...?\nLORD ESQUELETO te mira feo y prepara sus armas.\n");
         }
@@ -724,7 +724,7 @@ void aleatorizarFrase(int id){
         if(resultado == 2)
             printf("\nQué capa mas horrible.\nMAGO persigue tu dirección.\nMerece morir por ese vestuario.\n");
 
-        else if(resultado > 2){
+        else if(resultado > frases){
             printf("\nUn humanoide con una extraña capa morada y ojos muertos mira en tu dirección\nMAGO te ataca.\nHora de enlistar tu armamento.\n");
 
         }
@@ -748,7 +748,7 @@ void aleatorizarFrase(int id){
         if(resultado == 2)
             printf("\n¿Qué significa este estruendo?\nSientes un gran calor proveniente del suelo abajo tuyo.\nLas piedras se ablandan y se convierten en lava.\nDas varios pasos atrás....\nUna bestia con patas de cabra y cuernos aparece frente a ti.\nDEMONIO te ataca, sin compasión.\nÉsta batalla no será como las anteriores...\n");
 
-        else if(resultado > 2){
+        else if(resultado > frases){
             printf("\nDas un paso en falso.\nEl suelo se caliente y ablanda al mismo tiempo.\n¿Una trampa...?\nRetrocedes unos metros.\nSe arma un agujero en las rocas.\nVes cuernos salir de este espacio y un calor infernal que te ahoga\nUn terrible DEMONIO saca una espada y se prepara para asesinarte.\n¡MATAR O MORIR!\n");
         }
 
@@ -775,7 +775,7 @@ void aleatorizarFrase(int id){
         if(resultado == 3)
             printf("\nUna especie de engrudo es contenido dentro de una botella de mediano espesor.\nLa guardas en tu morral.\nUna poción ha sido sumada a tu arsenal.\n");
 
-        else if(resultado > 3){
+        else if(resultado > frases){
 
             printf("\nUna especie de engrudo es contenido dentro de una botella de mediano espesor.\nLa guardas en tu morral.\nUna poción ha sido sumada a tu arsenal.\n");
         }
@@ -813,11 +813,6 @@ void aleatorizarFrase(int id){
         if(resultado == 6)
             printf("\nMiras brillar algo incrustado en la pared.\nUtilizando el filo de tu espada logras arrancarlo.\nUna preciosa gema de color esmeralda cae en tu mano.\nAdquiriste un nuevo tesoro.");
 
-        else if(resultado > 6){
-
-            printf("\nPisas algo duro.\nAl levantar el pie ves un gran lingote de oro.\nAdquiriste un tesoro.\n");
-
-        }
     }
 
     //Vacío.
@@ -833,10 +828,10 @@ void aleatorizarFrase(int id){
         }
 
         if(resultado == 1)
-            printf("\nPisas algo duro.\nAl levantar el pie ves un gran lingote de oro.\nAdquiriste un tesoro.\n");
+            printf("\nVes las paredes transpirar un líquido extraño.\nDisgustado, avanzas...");
 
         if(resultado == 2)
-            printf("\nVes salir vapor de varias calderas en el suelo...\nDecides seguir.\n");
+            printf("\nVes salir vapor de varias calderas en el suelo.\nDecides seguir...\n");
 
         if(resultado == 3)
             printf("\nVes el cadáver de un guerrero caído...\nAvanzas con un poco de miedo...\n");
@@ -856,7 +851,7 @@ void aleatorizarFrase(int id){
         if(resultado == 8)
             printf("\nUn olor repugnante llena tus sentidos.\nTe tapas los orificios de tu nariz y decides avanzar...\n");
 
-        else if(resultado > 8){
+        else if(resultado > frases){
             printf("\nUn olor repugnante llena tus sentidos.\nTe tapas los orificios de tu nariz y decides avanzar...\n");
         }
     }
@@ -920,6 +915,8 @@ int * beberPocion(int * bolso){
 
 void mostrarCatalogo(){
 
+    saltarMucho();
+
     printf("\n\n\t\t\t\tItem\t\t\t\t\t\tPrecio\n\n");
     printf("_________________________________________________________________________________________\n");
     printf("\n1. Escudo de Madera: Agrega un dado de defensa.\t\t\t\t\t1 Tesoro\n");
@@ -931,11 +928,9 @@ void mostrarCatalogo(){
     printf("\n7. Hacha guerrera: Agrega dos dados de ataque.\t\t\t\t\t4 Tesoros\n");
     printf("\n8. Armadura con espinas: Agrega dos dados de ataque, y un dado de defensa.\t5 Tesoros\n");
     printf("\n9. Armadura mágica: Agrega cinco dados de defensa.\t\t\t\t6 Tesoros\n");
-    printf("\n\n");
     printf("\n10. Mostrar el catálogo.\n");
     printf("\n11. Salir.\n");
     printf("\nEl Escudo de Madera no se puede usar en conjunto con el Escudo de Hierro.\nLa Espada y el Hacha guerrera no se pueden usar en conjunto.\nLa Armadura con Espinas y la Armadura Mágica no se pueden usar en conjunto.\n\n");
-
     return;
 }
 
@@ -946,24 +941,14 @@ int * comprar(int * bolso){
     int opcion;
     int catalogo;
 
-    //Se le muestra el catálogo de items por pantalla al jugador.
+    //Se le avisa al jugador que el mercader está disponible.
     printf("Una figura encapuchada se te acerca.\nTiene aspecto enfermizo.\nHabla un idioma desconocido...\n\n'Got some rare things on sale, stranger!'\n\nTe muestra un extraño catálogo.\nCreo que te quiere vender algo...\n");
     presionarEnter();
-    printf("\n\n\t\t\t\tItem\t\t\t\t\t\tPrecio\n\n");
-    printf("_________________________________________________________________________________________\n");
-    printf("\n1. Escudo de Madera: Agrega un dado de defensa.\t\t\t\t\t1 Tesoro\n");
-    printf("\n2. Una poción.\t\t\t\t\t\t\t\t\t1 Tesoro\n");
-    printf("\n3. Escudo de Hierro: Agrega dos dados de defensa.\t\t\t\t2 Tesoros\n");
-    printf("\n4. Tres pociones.\t\t\t\t\t\t\t\t2 Tesoros\n");
-    printf("\n5. Espada: Agrega un dado de ataque.\t\t\t\t\t\t3 Tesoros\n");
-    printf("\n6. Seis pociones.\t\t\t\t\t\t\t\t3 Tesoros\n");
-    printf("\n7. Hacha guerrera: Agrega dos dados de ataque.\t\t\t\t\t4 Tesoros\n");
-    printf("\n8. Armadura con espinas: Agrega dos dados de ataque, y un dado de defensa.\t5 Tesoros\n");
-    printf("\n9. Armadura mágica: Agrega cinco dados de defensa.\t\t\t\t6 Tesoros\n");
-    printf("\n\n");
-    printf("\n10. Volver a mostrar el catálogo.\n");
-    printf("\n11. Salir.\n");
-    printf("\nEl Escudo de Madera no se puede usar en conjunto con el Escudo de Hierro.\nLa Espada y el Hacha guerrera no se pueden usar en conjunto.\nLa Armadura con Espinas y la Armadura Mágica no se pueden usar en conjunto.\n\n");
+
+    //Se le muestra el catálogo de items por pantalla al jugador.
+    mostrarCatalogo();
+    printf("\n\nPosees %d tesoros.\n\n", bolso[1]);
+
     //Se le pregunte si desea comprar algún item del catálogo.
     printf("\n¿Deseas comprar algún item?\nSeleccione una opción.\n1. Sí, me gustaría.\n2. No, por favor alejate.\n>>");
     scanf("%d", &opcion);
@@ -991,7 +976,7 @@ int * comprar(int * bolso){
         //Caso contrario el periodo de compras continua.
         else{
 
-            printf("\n\n'What are you buying?'\n¿Qué número del catálogo deseas comprar?\n\nSi quieres ver de nuevo el catálogo, la opción es 10.\nRecuerda que la opción para salir es 11.\n>>");
+            printf("\n\n\n\n'What are you buying?'\n¿Qué número del catálogo deseas comprar?\n\nSi quieres ver de nuevo el catálogo, la opción es 10.\nRecuerda que la opción para salir es 11.\n>>");
             scanf("%d", &catalogo);
             getchar();
         }
@@ -1010,6 +995,7 @@ int * comprar(int * bolso){
                 bolso[3] += 1;
                 bolso[6] = 1;
                 bolso[1] -= 1;
+                printf("\nTe quedan %d tesoros.\n", bolso[1]);
                 presionarEnter();
 
             }
@@ -1036,6 +1022,7 @@ int * comprar(int * bolso){
             printf("\n\n'A wise choice, mate!'\nUna poción fue sumada a tu mochila.\n");
             bolso[0] += 1;
             bolso[1] -= 1;
+            printf("\nTe quedan %d tesoros.\n", bolso[1]);
             presionarEnter();
         }
 
@@ -1045,6 +1032,7 @@ int * comprar(int * bolso){
                 bolso[3] += 2;
                 bolso[6] = 2;
                 bolso[1] -= 2;
+                printf("\nTe quedan %d tesoros.\n", bolso[1]);
                 presionarEnter();
             }
             //Si al comprar el Escudo de Hierro ya se posee el Escudo de Madera, éste último es reemplazado por el primero y se le advierte de las consecuencias de la compra.
@@ -1054,6 +1042,7 @@ int * comprar(int * bolso){
                 bolso[3] += 2;
                 bolso[6] = 2;
                 bolso[1] -= 2;
+                printf("\nTe quedan %d tesoros.\n", bolso[1]);
                 presionarEnter();
             }
 
@@ -1075,6 +1064,7 @@ int * comprar(int * bolso){
                 printf("\n\n'Stranger, stranger!'.\nTres pociones han sido añadidas a tu mochila.\n");
                 bolso[0] += 3;
                 bolso[1] -= 2;
+                printf("\nTe quedan %d tesoros.\n", bolso[1]);
                 presionarEnter();
             }
 
@@ -1093,6 +1083,7 @@ int * comprar(int * bolso){
                 bolso[2] += 1;
                 bolso[1] -= 3;
                 bolso[5] = 1;
+                printf("\nTe quedan %d tesoros.\n", bolso[1]);
                 presionarEnter();
             }
 
@@ -1122,6 +1113,7 @@ int * comprar(int * bolso){
                 printf("\n\n'Wise choice, mate!'\nSeis pociones fueron sumadas a tu arsenal.\n");
                 bolso[0] += 6;
                 bolso[1] -= 3;
+                printf("\nTe quedan %d tesoros.\n", bolso[1]);
                 presionarEnter();
             }
             else{
@@ -1139,6 +1131,7 @@ int * comprar(int * bolso){
                 bolso[2] += 2;
                 bolso[5] = 2;
                 bolso[1] -= 4;
+                printf("\nTe quedan %d tesoros.\n", bolso[1]);
                 presionarEnter();
             }
 
@@ -1148,6 +1141,7 @@ int * comprar(int * bolso){
                 bolso[2] -= 1;
                 bolso[5] = 2;
                 bolso[1] -= 4;
+                printf("\nTe quedan %d tesoros.\n", bolso[1]);
                 presionarEnter();
 
             }
@@ -1174,6 +1168,7 @@ int * comprar(int * bolso){
                 bolso[3] += 1;
                 bolso[7] = 1;
                 bolso[1] -= 5;
+                printf("\nTe quedan %d tesoros.\n", bolso[1]);
                 presionarEnter();
             }
 
@@ -1206,6 +1201,7 @@ int * comprar(int * bolso){
                 bolso[3] += 5;
                 bolso[1] -= 6;
                 bolso[7] = 2;
+                printf("\nTe quedan %d tesoros.\n", bolso[1]);
                 presionarEnter();
             }
 
@@ -1217,6 +1213,7 @@ int * comprar(int * bolso){
                 bolso[3] += 5;
                 bolso[7] = 2;
                 bolso[1] -= 6;
+                printf("\nTe quedan %d tesoros.\n", bolso[1]);
                 presionarEnter();
             }
 
@@ -1235,6 +1232,8 @@ int * comprar(int * bolso){
         }
         if(catalogo == 10){
             mostrarCatalogo();
+            printf("\nPosees %d tesoros.\n", bolso[1]);
+
 
         }
 
@@ -1424,11 +1423,8 @@ int * batallar(int * bolso, int dadosAtaqueEnemigo, int dadosDefensaEnemigo, int
                 aleatorizarFrase(7); // FRASE RANDOMIZABLE 7
                 presionarEnter();
                 saltarMucho();
-            }
-            
+            }   
         }
-
-
     }
 
     if(bolso[4] > 0){
@@ -1439,8 +1435,8 @@ int * batallar(int * bolso, int dadosAtaqueEnemigo, int dadosDefensaEnemigo, int
         if(bolso[1] > 0)
           bolso = comprar(bolso);
 
-        saltarMucho();
         return bolso;
+        saltarMucho();        
     }
 
     else if(bolso[4] <= 0)
@@ -1521,9 +1517,7 @@ int * encontrarEntidad(int ** tablero, int * bolso){
             aleatorizarFrase(21);
             bolso[1] += 1;
             presionarEnter();
-
         }
-
     }
 
     if(ubicacion[0] == 8){
@@ -1884,7 +1878,7 @@ int * encontrarEntidad(int ** tablero, int * bolso){
     if(ubicacion[0] == 0){
 
         printf("\n\nSientes el ambiente cambiar...\nNunca antes habías sentido algo por el estilo...\nLa penumbra te encapsula más y más.\n");
-        printf("\nSientes tus parpados abrirse para poder captar la poca claridad restante...\n");
+        printf("\nSientes tus párpados abrirse para poder captar la poca claridad restante...\n");
         printf("\nEmpieza a correr sangre por las paredes que te rodean...\n");
         printf("\nUna figura encapuchada aparece frente a ti...\nMuestra su rostro...\nEs horriblemente pálido y sus ojos rojos te abruman con miedo...\n");
         printf("\nUn grito irreconocible llena tus oidos de terror...\n");
@@ -1924,7 +1918,7 @@ int validarJugada(int ** tablero, int jugada, int fila, int columna){
     //Validación del punto de partida.
     if(fila == 11 && columna == 4){
         //Jugadas válidas son 1, 2 ó 3.
-        while(jugada >= 3){
+        while(jugada > 3){
 
             printf("\nJugada inválida.\n");
             jugada = ingresarJugada();
@@ -2059,11 +2053,66 @@ int validarJugada(int ** tablero, int jugada, int fila, int columna){
     return jugada;
 }
 
+int ** mostrarJugadasValidas(int ** tablero){
+
+    int * ubicacion;
+    int fila;
+    int columna;
+
+    ubicacion = encontrarJugador(tablero);
+    fila = ubicacion[0];
+    columna = ubicacion[1];
+
+    if(tablero[fila - 1][columna - 1] == 0)
+        tablero[fila - 1][columna - 1] = 11;
+
+    if(tablero[fila - 1][columna] == 0)
+        tablero[fila - 1][columna] = 22;
+
+    if(tablero[fila - 1][columna + 1] == 0)
+        tablero[fila - 1][columna + 1] = 33;
+
+    if(tablero[fila][columna + 1] == 0)
+        tablero[fila][columna + 1] = 44;
+
+    if(tablero[fila + 1][columna + 1] == 0)
+        tablero[fila + 1][columna + 1] = 55;
+
+    if(tablero[fila + 1][columna] == 0)
+        tablero[fila + 1][columna] = 66;
+
+    if(tablero[fila + 1][columna - 1] == 0)
+        tablero[fila + 1][columna - 1] = 77;
+
+    if(tablero[fila][columna - 1] == 0)
+        tablero[fila][columna - 1] = 88;
+
+    return tablero;
+}
+
+int ** limpiarTablero(int ** tablero){
+
+    int fila;
+    int columna;
+
+    for(fila = 0; fila < 12; fila++){
+        for(columna = 0; columna < 9; columna++){
+
+            if(tablero[fila][columna] == 11 || tablero[fila][columna] == 22 || tablero[fila][columna] == 33 || tablero[fila][columna] == 44 || tablero[fila][columna] == 55 || tablero[fila][columna] == 66 || tablero[fila][columna] == 77 || tablero[fila][columna] == 88)
+                tablero[fila][columna] = 0;
+        }
+    }
+
+    return tablero;
+}
+
+
 int ** modificarTablero(int ** tablero, int jugada){
 
     int * ubicacion;
     int fila;
     int columna;
+
     ubicacion = encontrarJugador(tablero);
     fila = ubicacion[0];
     columna = ubicacion[1];
@@ -2109,11 +2158,11 @@ int imprimirTablero(int ** tablero){
 
             if(columna == 8){
 
-            printf("%d\n", tablero[fila][columna]);
+            printf("\t%d\n", tablero[fila][columna]);
             }
 
             else
-            printf("%d", tablero[fila][columna]);
+            printf("\t%d", tablero[fila][columna]);
         }
     }
 
@@ -2131,9 +2180,13 @@ int main(){
 
     condicion = 0;
     tablero = generarTablero();
+    tablero = mostrarJugadasValidas(tablero);
     mochila = generarMochila();
 
     imprimirTablero(tablero);
+
+    tablero = limpiarTablero(tablero);
+
     imprimirMochila(mochila);
 
     while(condicion == 0){
@@ -2145,9 +2198,14 @@ int main(){
 
         tablero = modificarTablero(tablero, jugada);
 
+        tablero = mostrarJugadasValidas(tablero);
+
         mochila = encontrarEntidad(tablero, mochila);
 
         imprimirTablero(tablero);
+
+        tablero = limpiarTablero(tablero);
+
         imprimirMochila(mochila);
 
         if(mochila[4] <= 0){
