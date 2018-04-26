@@ -46,16 +46,17 @@ int ** generarTablero(){
     return tablero;
 }
 
-int liberarTablero(int ** tablero){
+void liberarTablero(int ** tablero){
 
     int fila;
 
     for(fila = 0; fila < 12; fila++){
-
-        free(tablero[fila]);
+            free(tablero[fila]);
     }
 
     free(tablero);
+
+    return;
 }
 
 void saltarMucho(){
@@ -195,6 +196,7 @@ int * encontrarJugador(int ** tablero){
 int * generarMochila(){
 /*  Se genera una variable de tipo entero 'static' para evitar 'Warnings' al compilar el programa.
     El arreglo posee ocho lugares, uno por cada item perteneciente al juego */
+
     static int bolso[8];
 
     //Pociones.
@@ -245,7 +247,7 @@ void aleatorizarFrase(int id){
 
     if(id == 1){
 
-        frases = 7;
+        frases = 6;
 
         resultado = rand() % (frases);
 
@@ -271,17 +273,12 @@ void aleatorizarFrase(int id){
 
         if(resultado == 6)
             printf("\nSientes como tus fuerzas se debilitan.\nTu onda vital disminuye debido a tus heridas.\n");
-        
-        else if(resultado > frases){
-
-            printf("\nSientes un fuerte dolor en tu cuerpo.\n");
-        }
 
     }
 
     if(id == 2){
 
-        frases = 7;
+        frases = 6;
 
         resultado = rand() % (frases);
 
@@ -307,16 +304,11 @@ void aleatorizarFrase(int id){
 
         if(resultado == 6)
             printf("\nA pesar de los esfuerzos del rival, con un solo dedo bloqueas todos los ataques del enemigo.\n");
-
-        else if(resultado > frases){
-
-            printf("\nCon un poco de habilidad y bastante suerte logras bloquear todos los ataques del enemigo.\n");
-        }
     }
 
     if(id == 3){
 
-        frases = 7;
+        frases = 6;
 
         resultado = rand() % (frases);
 
@@ -342,16 +334,11 @@ void aleatorizarFrase(int id){
 
         if(resultado == 6)
             printf("\nEl rival pierde el equilibrio al atacarte y falla.\n");
-
-        else if(resultado > frases){
-
-            printf("\nEl enemigo resbala al atacarte y retrocede.\n");
-        }
     }
 
     if(id == 4){
 
-        frases = 7;
+        frases = 6;
 
         resultado = rand() % (frases);
 
@@ -377,16 +364,11 @@ void aleatorizarFrase(int id){
 
         if(resultado == 6)
             printf("\nReúnes tus fuerzas y arremetes contra el rival...\n");
-
-        else if(resultado > frases){
-
-            printf("\nSudando, levantas tu arma en un intento de ataque...\n");
-        }
     }
 
     if(id == 5){
 
-        frases = 7;
+        frases = 6;
 
         resultado = rand() % (frases);
 
@@ -412,16 +394,11 @@ void aleatorizarFrase(int id){
 
         if(resultado == 6)
             printf("\nAtacas... pero la frase 'feto ingeniero' escrita con sangre en una pared te ha distraído y has fallado.\n¿Qué es 'feto'?\nEl enemigo sigue con vida.\n");
-
-        else if(resultado > frases){
-
-            printf("\nAtacas con todas tus fuerzas.\nTus esfuerzos son en vano, tu enemigo sigue en pie.\n");
-        }
     }
 
     if(id == 6){
 
-        frases = 7;
+        frases = 6;
 
         resultado = rand() % (frases);
 
@@ -447,16 +424,11 @@ void aleatorizarFrase(int id){
 
         if(resultado == 6)
             printf("\nCon un lápiz y una libretita de color negro podría haber sido más sencillo.\nDe igual manera sales victorioso.\n");
-
-        else if(resultado > frases){
-
-            printf("\nAtacas con toda tu furia.\n¡Heriste mortalmente a tu enemigo!\nLa victoria es tuya.");
-        }
     }
 
     if(id == 7){
 
-        frases = 7;
+        frases = 6;
 
         resultado = rand() % (frases);
 
@@ -483,15 +455,12 @@ void aleatorizarFrase(int id){
         if(resultado == 6)
             printf("\nLa velocidad de tu enemigo ha sido muy superior y no has podido acertar.\nLa batalla persiste...\n");
 
-        else if(resultado > frases){
-            printf("\nEl enemigo ha esquivado todos tus ataques.\nLa pelea sigue...\n");
-        }
     }
 
     // Ogro.
     if(id == 8){
 
-        frases = 5;
+        frases = 4;
 
         resultado = rand() % (frases);
 
@@ -511,16 +480,12 @@ void aleatorizarFrase(int id){
 
         if(resultado == 4)
             printf("\nUn OGRO horriblemente deformado cruza sus cejas al verte pasar...\nCriatura del inframundo, muere.\n");
-
-        else if(resultado > frases){
-            printf("\nUn OGRO bloquea tu camino.\n'Pelea insecto'\n¿Listo para pelear?\n");
-        }
     }
 
     //Lobo.
     if(id == 9){
 
-        frases = 5;
+        frases = 4;
 
         resultado = rand() % (frases);
 
@@ -540,16 +505,12 @@ void aleatorizarFrase(int id){
 
         if(resultado == 4)
             printf("\nLos ojos de un peludo LOBO brillan en la penumbra.\nSientes la adrenalina subir y te preparas para eliminarlo.\n");
-
-        else if(resultado > frases){
-            printf("\nVes un LOBO marcar su territorio.\nTu presencia no le es grata...\n¡Cuidado con la orina!\n");            
-        }
     }
 
     //Esqueleto.
     if(id == 10){
 
-        frases = 5;
+        frases = 4;
 
         resultado = rand() % (frases);
 
@@ -570,16 +531,12 @@ void aleatorizarFrase(int id){
         if(resultado == 4)
             printf("\nUna bestia horripilante aparece frente a ti.\nSu cuerpo no tiene piel ni carne.\nESQUELETO se prepara para atacarte.\n");
 
-        else if(resultado > frases){
-            printf("\nUn ESQUELETO saca sus armas al verte pasar...\nHaces lo mismo y te preparas para la batalla.\n");
-
-        }
-
     }
+
     //Guerrero.
     if(id == 11){
 
-        frases = 5;
+        frases = 4;
 
         resultado = rand() % (frases);
 
@@ -599,17 +556,12 @@ void aleatorizarFrase(int id){
 
         if(resultado == 4)
             printf("\nUn GUERRERO con el la cara llena de cicatrices corre hacia ti.\nDesenvainas tu espada, preparas tu escudo.\n");
-
-        else if(resultado > frases){
-            printf("\nEscuchas balbuseos irreproducibles\nEs un GUERRERO gordo y encorvado.\n\nBestia endemoniada...\n¡MÁTALO!\n");
-
-        }
     }
 
     //Murciélago.
     if(id == 12){
 
-        frases = 4;
+        frases = 3;
 
         resultado = rand() % (frases);
 
@@ -626,17 +578,12 @@ void aleatorizarFrase(int id){
 
         if(resultado == 3)
             printf("\n¿Qué ruido es ese?\nUn MURCIÉLAGO de tamaño considerable vuela en tu dirección.\n¡PELEA!\n");
-
-        else if(resultado > frases){
-
-            printf("\n¿Qué ruido es ese?\nUn MURCIÉLAGO de tamaño considerable vuela en tu dirección\n¡PELEA!\n");
-        }
     }
 
     //Cíclope.
     if(id == 13){
 
-        frases = 4;
+        frases = 2;
 
         resultado = rand() % (frases);
 
@@ -651,17 +598,12 @@ void aleatorizarFrase(int id){
         if(resultado == 2)
             printf("\nEste CÍCLOPE ha perdido todos sus ojos excepto el de su frente.\nQué bestia más fea.\nTe preparas para la batalla.\n");
 
-        else if(resultado > frases){
-
-            printf("\nEste CÍCLOPE ha perdido todos sus ojos excepto el de su frente.\nQué bestia más fea.\nTe preparas para la batalla.\n");
-        }
-
     }
 
     //Elfo oscuro.
     if(id == 14){
 
-        frases = 3;
+        frases = 2;
 
         resultado = rand() % (frases);
 
@@ -675,17 +617,12 @@ void aleatorizarFrase(int id){
 
         if(resultado == 2)
             printf("\n¿Un elfo?\n¿Qué le paso a su piel...?\nELFO OSCURO arremete contra ti.\n");
-
-        else if(resultado > frases){
-
-            printf("\nU-Un ELFO... pero su piel... es de color negro...\nHa sido corrompido por poderes oscuros.\nUn ELFO OSCURO arremente contra ti.\n");
-        }
     }
 
     //Lord esqueleto.
     if(id == 15){
 
-        frases = 3;
+        frases = 2;
 
         resultado = rand() % (frases);
 
@@ -699,17 +636,12 @@ void aleatorizarFrase(int id){
 
         if(resultado == 2)
             printf("\nEste esqueleto tiene un aspecto más forma que los que has encontrado antes.\nLORD ESQUELETO persigue tu pasar.\nHora del combate.\n");
-
-        else if(resultado > frases){
-
-            printf("\n¿Por qué este esqueleto tiene una capa?\n¿Y un casco...?\nLORD ESQUELETO te mira feo y prepara sus armas.\n");
-        }
     }
 
     //Mago.
     if(id == 16){
 
-        frases = 3;
+        frases = 2;
 
         resultado = rand() % (frases);
 
@@ -724,16 +656,12 @@ void aleatorizarFrase(int id){
         if(resultado == 2)
             printf("\nQué capa mas horrible.\nMAGO persigue tu dirección.\nMerece morir por ese vestuario.\n");
 
-        else if(resultado > frases){
-            printf("\nUn humanoide con una extraña capa morada y ojos muertos mira en tu dirección\nMAGO te ataca.\nHora de enlistar tu armamento.\n");
-
-        }
     }
 
     //Demonio.
     if(id == 666){
 
-        frases = 3;
+        frases = 2;
 
         resultado = rand() % (frases);
 
@@ -747,11 +675,6 @@ void aleatorizarFrase(int id){
         
         if(resultado == 2)
             printf("\n¿Qué significa este estruendo?\nSientes un gran calor proveniente del suelo abajo tuyo.\nLas piedras se ablandan y se convierten en lava.\nDas varios pasos atrás....\nUna bestia con patas de cabra y cuernos aparece frente a ti.\nDEMONIO te ataca, sin compasión.\nÉsta batalla no será como las anteriores...\n");
-
-        else if(resultado > frases){
-            printf("\nDas un paso en falso.\nEl suelo se caliente y ablanda al mismo tiempo.\n¿Una trampa...?\nRetrocedes unos metros.\nSe arma un agujero en las rocas.\nVes cuernos salir de este espacio y un calor infernal que te ahoga\nUn terrible DEMONIO saca una espada y se prepara para asesinarte.\n¡MATAR O MORIR!\n");
-        }
-
     }
 
     //Poción.
@@ -774,11 +697,6 @@ void aleatorizarFrase(int id){
 
         if(resultado == 3)
             printf("\nUna especie de engrudo es contenido dentro de una botella de mediano espesor.\nLa guardas en tu morral.\nUna poción ha sido sumada a tu arsenal.\n");
-
-        else if(resultado > frases){
-
-            printf("\nUna especie de engrudo es contenido dentro de una botella de mediano espesor.\nLa guardas en tu morral.\nUna poción ha sido sumada a tu arsenal.\n");
-        }
 
 
     }
@@ -818,7 +736,7 @@ void aleatorizarFrase(int id){
     //Vacío.
     if(id == 22){
 
-        frases = 9;
+        frases = 8;
 
         resultado = rand() % (frases);
 
@@ -851,9 +769,6 @@ void aleatorizarFrase(int id){
         if(resultado == 8)
             printf("\nUn olor repugnante llena tus sentidos.\nTe tapas los orificios de tu nariz y decides avanzar...\n");
 
-        else if(resultado > frases){
-            printf("\nUn olor repugnante llena tus sentidos.\nTe tapas los orificios de tu nariz y decides avanzar...\n");
-        }
     }
 
     return;
@@ -1246,8 +1161,43 @@ int * comprar(int * bolso){
         
     }
 
+    saltarMucho();
+    return bolso;
+}
+int * jugadorEncerrado(int ** tablero, int * bolso){
+
+    int fila;
+    int columna;
+    int * ubicacion;
+
+
+    ubicacion = encontrarJugador(tablero);
+    fila = ubicacion[0];
+    columna = ubicacion[1];
+
+    if( tablero[fila - 1][columna - 1] != 0 &&
+        tablero[fila - 1][columna] != 0 &&
+        tablero[fila - 1][columna + 1] != 0 &&
+        tablero[fila][columna + 1] != 0 &&
+        tablero[fila + 1][columna + 1] != 0 &&
+        tablero[fila + 1][columna] != 0 &&
+        tablero[fila + 1][columna - 1] != 0 &&
+        tablero[fila][columna - 1] != 0 ){
+
+        bolso[4] = 33;
+    }
 
     return bolso;
+}
+int muerteDracula(){
+
+    int condicion;
+
+    printf("\nDerrotaste a Drácula.\nEres el ganador.\nEl juego termina.\n");
+    condicion = 1;
+    presionarEnter();
+
+    return condicion;
 }
 int muerteJugador(){
 
@@ -1281,6 +1231,7 @@ int * batallar(int * bolso, int dadosAtaqueEnemigo, int dadosDefensaEnemigo, int
     int defensaJugador = 0;
 
     int finalCombate = 0;
+    int derrotaDracula = 0;
 
     while(finalCombate == 0){
 
@@ -1417,6 +1368,8 @@ int * batallar(int * bolso, int dadosAtaqueEnemigo, int dadosDefensaEnemigo, int
                 printf("\n\nEl enemigo ha caído en un profundo estupor.\nDespués de varias convulsiones queda inmóvil y no respira.\nLo has derrotado.\n\n");
                 presionarEnter();
                 finalCombate = 1;
+                derrotaDracula = 1;
+
             }
 
             if((defensaEnemigo - ataqueJugador) >= 0){
@@ -1427,7 +1380,7 @@ int * batallar(int * bolso, int dadosAtaqueEnemigo, int dadosDefensaEnemigo, int
         }
     }
 
-    if(bolso[4] > 0){
+    if(bolso[4] > 0 && derrotaDracula == 0){
         
         if(bolso[0] > 0)
             bolso = beberPocion(bolso);
@@ -1439,8 +1392,12 @@ int * batallar(int * bolso, int dadosAtaqueEnemigo, int dadosDefensaEnemigo, int
         saltarMucho();        
     }
 
-    else if(bolso[4] <= 0)
-        return bolso;
+    if(derrotaDracula == 1){
+        //The answer to life, the universe and everything.
+        bolso[4] = 42;  
+    }
+
+    return bolso;
 }
 
 int * encontrarEntidad(int ** tablero, int * bolso){
@@ -2054,7 +2011,6 @@ int validarJugada(int ** tablero, int jugada, int fila, int columna){
 }
 
 int ** mostrarJugadasValidas(int ** tablero){
-
     int * ubicacion;
     int fila;
     int columna;
@@ -2063,29 +2019,32 @@ int ** mostrarJugadasValidas(int ** tablero){
     fila = ubicacion[0];
     columna = ubicacion[1];
 
-    if(tablero[fila - 1][columna - 1] == 0)
-        tablero[fila - 1][columna - 1] = 11;
+    if(ubicacion[0] != 0){
+        if(tablero[fila - 1][columna - 1] == 0)
+            tablero[fila - 1][columna - 1] = 11;
 
-    if(tablero[fila - 1][columna] == 0)
-        tablero[fila - 1][columna] = 22;
+        if(tablero[fila - 1][columna] == 0)
+            tablero[fila - 1][columna] = 22;
 
-    if(tablero[fila - 1][columna + 1] == 0)
-        tablero[fila - 1][columna + 1] = 33;
+        if(tablero[fila - 1][columna + 1] == 0)
+            tablero[fila - 1][columna + 1] = 33;
 
-    if(tablero[fila][columna + 1] == 0)
-        tablero[fila][columna + 1] = 44;
+        if(tablero[fila][columna + 1] == 0)
+            tablero[fila][columna + 1] = 44;
 
-    if(tablero[fila + 1][columna + 1] == 0)
-        tablero[fila + 1][columna + 1] = 55;
+        if(tablero[fila + 1][columna + 1] == 0)
+            tablero[fila + 1][columna + 1] = 55;
 
-    if(tablero[fila + 1][columna] == 0)
-        tablero[fila + 1][columna] = 66;
+        if(tablero[fila + 1][columna] == 0)
+            tablero[fila + 1][columna] = 66;
 
-    if(tablero[fila + 1][columna - 1] == 0)
-        tablero[fila + 1][columna - 1] = 77;
+        if(tablero[fila + 1][columna - 1] == 0)
+            tablero[fila + 1][columna - 1] = 77;
 
-    if(tablero[fila][columna - 1] == 0)
-        tablero[fila][columna - 1] = 88;
+        if(tablero[fila][columna - 1] == 0)
+            tablero[fila][columna - 1] = 88;
+
+    }
 
     return tablero;
 }
@@ -2106,9 +2065,7 @@ int ** limpiarTablero(int ** tablero){
     return tablero;
 }
 
-
 int ** modificarTablero(int ** tablero, int jugada){
-
     int * ubicacion;
     int fila;
     int columna;
@@ -2194,10 +2151,10 @@ int main(){
         jugada = ingresarJugada();
         ubicacion = encontrarJugador(tablero);
         jugada = validarJugada(tablero, jugada, ubicacion[0], ubicacion[1]);
+
         saltarMucho();
 
         tablero = modificarTablero(tablero, jugada);
-
         tablero = mostrarJugadasValidas(tablero);
 
         mochila = encontrarEntidad(tablero, mochila);
@@ -2205,6 +2162,7 @@ int main(){
         imprimirTablero(tablero);
 
         tablero = limpiarTablero(tablero);
+        mochila = jugadorEncerrado(tablero, mochila);
 
         imprimirMochila(mochila);
 
@@ -2213,6 +2171,21 @@ int main(){
             saltarMucho();
             saltarMucho();
             condicion = muerteJugador();
+        }
+
+        if(mochila[4] == 42){
+
+            saltarMucho();
+            saltarMucho();
+            condicion = muerteDracula();
+        }
+
+        if(mochila[4] == 33){
+
+            saltarMucho();
+            saltarMucho();
+            printf("\n¡Te has quedado encerrado!\nPerdiste el juego.\n");
+            condicion = 1;
         }
     }
 
