@@ -2,9 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 
-/*  Entrada:
-    Salida: 
-    Objetivo:
+/*  Entrada: Nada.
+    Salida: Un arreglo de dos dimensiones que simboliza una matriz, que a su vez, simboliza el tablero en el cual el juego se desarrolla.
 */
 int ** generarTablero(){
 
@@ -49,9 +48,9 @@ int ** generarTablero(){
     return tablero;
 }
 
-/*  Entrada:
-    Salida: 
-    Objetivo:
+/*  Entrada: Un arreglo de dos dimensiones que representa el tablero de juego.
+    Salida: Nada.
+    Objetivo: Liberar la memoria ocupada por el tablero.
 */
 void liberarTablero(int ** tablero){
 
@@ -66,9 +65,9 @@ void liberarTablero(int ** tablero){
     return;
 }
 
-/*  Entrada:
-    Salida: 
-    Objetivo:
+/*  Entrada: Nada.
+    Salida: Nada.
+    Objetivo: Son muchos saltos de lineas contendiso en un printf(), uno tras otro, para genera un súper salto de línea y así facilitar el orden y pulcritud del juego y código.
 */
 void saltarMucho(){
 
@@ -76,9 +75,9 @@ void saltarMucho(){
     return;
 }
 
-/*  Entrada:
-    Salida: 
-    Objetivo:
+/*  Entrada: Nada.
+    Salida: Entero, 0.
+    Objetivo: Para facilitar el orden y pulcritud del juego se decidió por escribir una función que pidiera al usuario presionar la tecla Enter para seguir avanzando en el juego.
 */
 int presionarEnter(){
 
@@ -87,21 +86,23 @@ int presionarEnter(){
     return 0;
 }
 
-
-/*  Entrada:
-    Salida: 
-    Objetivo:
+/*  Entrada: Nada.
+    Salida: Un resultado aleatorio que simula un dado real.
+    Objetivo: Segun las especificaciones entregadas por coordinación se creó una función que representa un dado.
 */
 int lanzarDado(){
-
+    //Se crea una variable donde sea posible guardar el resultado del dado lanzado.
     int resultado;
 
+    //Se utiliza la función random para generar un número aleatorio.
     resultado = rand() % ((6 + 1 - 1) + 1);
 
+    //Si por alguna razón el resultado es 0, entonces se llama nuevamente a la función random para generar otro resultado, hasta que éste sea distinto de 0.
     while(resultado == 0){
         resultado = rand() % ((6 + 1 - 1) + 1);
     }
 
+    //Se retorna el resultado obtenido por el lanzamiento del dado.
     return resultado;
 }
 
