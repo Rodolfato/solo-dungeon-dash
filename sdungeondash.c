@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include <time.h>
 
-/*  Rodolfo Montaña Alvarado
-    RUT 18.903.271-4
+/*  Rodolfo 
+    RUT 
 
-    Sección 13201-0-L-2
-    Profesor Alejandro Cisterna Villalobos
+    Sección 
+    Profesor 
 
     2 de Mayo del 2018
 
@@ -33,7 +33,11 @@
 
             Por ejemplo, comenzar con 99 dados de ataque y defensa, o 99 de vida, o 99 de tesoros, etc.
 
- 
+
+        4.  El cuchillo de manteca, escudo viejo y la chaqueta de cuero hervido, son indumentarias básicas que proporcionan las condiciones iniciales de los dados, nada más.
+
+            Se crearon para que el juego no mostrara "Nada equipado" al inicio.
+
 
     /* I N I C I O 
                     D E L
@@ -286,9 +290,9 @@ int * generarMochila(){
     //Tesoros.
     bolso[1] = 0;
     //Dados de ataque.
-    bolso[2] = 99;
+    bolso[2] = 1;
     //Dados de defensa.
-    bolso[3] = 99;
+    bolso[3] = 1;
     //Vida.
     bolso[4] = 17;
     //Arma
@@ -2590,19 +2594,7 @@ void imprimirTablero(int ** tablero){
                 printf("|||| %d |", cambiarDobleASolo(tablero[fila][columna]));
         }
     }
-    /*int column;
-    int row;
-    printf("\n\n");
-    for(row = 0; row < 13; row++){
 
-        for(column = 0; column < 9; column++){
-            if(column == 8)
-                printf("\t%d\n", tablero[row][column]);
-
-            else
-                printf("\t%d", tablero[row][column]);
-        }
-    } */
     return;
 }
 
