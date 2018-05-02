@@ -2,38 +2,74 @@
 #include <stdlib.h>
 #include <time.h>
 
+/*  Rodolfo Montaña Alvarado
+    RUT 18.903.271-4
+
+    Sección 13201-0-L-2
+    Profesor Alejandro Cisterna Villalobos
+
+    2 de Mayo del 2018
+
+    Generalidades del código:
+
+        El presente trabajo está compuesto de numerosas funciones, todas comentadas con sus respectivas Entradas, Salidas y el Objetivo de cada una.
+        Además, si en alguna función existe una o más líneas de interés para su funcionamiento, éstas han sido comentadas de igual forma.
+
+        El funcionamiento general del juego con todas las funciones trabajando en conjunto se puede ver explicado claramente en la función main(), en la parte final del archivo.
+
+    Observaciones:
+
+        1.  Todos los datos del jugador a lo largo de la duración del juego (Dados de ataque y defensa, armamento, vida, pociones y tesoros) son guardados en un arreglo que contiene 8 posiciones (0 al 7).
+            
+            Es decir; bolso = [Pociones, Tesoros, Dados de ataque, Dados de defensa, Vida, Arma, Escudo, Armadura].
+
+        
+        2.  La función aleatorizar frase se creó con la idea de que cada vez que el jugador entre en combate, éste pueda ver un nuevo dialogo en cada instancia de bloqueo, ataque, perder vida, etc.
+            
+            De esta forma, se torna un poco menos monótona la batalla dentro del juego.
+
+
+        3.  Si se desea tener un pasar más fácil por el juego, es posible modificar la función generarMochila() y cambiar los valores iniciales del jugador.
+
+            Por ejemplo, comenzar con 99 dados de ataque y defensa, o 99 de vida, o 99 de tesoros, etc.
+
+ 
+
+    /* I N I C I O 
+                    D E L
+                            P R O G R A M A */
+
+
+
 /*  Entrada: Nada.
     Salida: Un arreglo de dos dimensiones que simboliza una matriz, que a su vez, simboliza el tablero en el cual el juego se desarrolla.
+    Objetivo: Generar un arreglo de dos dimensiones en memoria para poder ser utilizado como tablero.
 */
 int ** generarTablero(){
 
     /*  Función que genera un array de dos dimensiones con "12" "filas" y "9" "columnas", asemejando una matriz que a su vez asemeja un tablero de juego.
-        El inicio del tablero está dado por el "1" y el final por el "9". 
+        El inicio del tablero está dado por el "1". 
         Espacios vacíos son representados con un "0" y el jugador con un "1".
         Espacios ya ocupados anteriormente por el jugador están representados por un "3".
-        Números "2" simbolizan casilleros inválidos. */
+        Números "2" simbolizan casilleros inválidos.
+        Más adelante se verá que las jugadas válidas posibles son representadas por números de dos dígitos (11 para la jugada número 1, 22 para la jugada 2, 33 para la 3, etc.) */
 
-    int ** tablero = (int **)malloc(12 * sizeof(int *));
+    int ** tablero = (int **)malloc(13 * sizeof(int *));
     int fila;
     int columna;
 
+
     for(fila = 0; fila < 13; fila++){
 
-        tablero[fila] = (int *)malloc(9 * sizeof(int)); 
-
+        tablero[fila] = (int *)malloc(9 * sizeof(int));
     }
 
-    for(fila = 0; fila < 12; fila++){
+    for(fila = 0; fila < 13; fila++){
 
         for(columna = 0; columna < 9; columna++){
-
-            if(fila == 0 && columna != 4)
-                tablero[fila][columna] = 2;
-
+            
+            //Casillero final.
             if(fila == 0 && columna == 4)
-                tablero[fila][columna] = 9;
-
-            if(fila > 0 && fila < 11)
                 tablero[fila][columna] = 0;
 
             if(fila == 11 && columna != 4)
@@ -42,6 +78,15 @@ int ** generarTablero(){
             if(fila == 11 && columna == 4)
                 tablero[fila][columna] = 1;
 
+            if(fila > 0 && fila < 11)
+                tablero[fila][columna] = 0;
+
+            if(fila == 11 && columna != 4)
+                tablero[fila][columna] = 2;
+
+            //Casilleros inaccesibles en el último nivel del juego.
+            if(fila == 0 && columna != 4)
+                tablero[fila][columna] = 2;
         }
     }
 
@@ -53,21 +98,21 @@ int ** generarTablero(){
     Objetivo: Liberar la memoria ocupada por el tablero.
 */
 void liberarTablero(int ** tablero){
-
+    
     int fila;
+    int columna;
 
-    for(fila = 0; fila < 12; fila++){
+    for(fila = 0; fila < 13; fila++){            
             free(tablero[fila]);
     }
 
     free(tablero);
-
     return;
 }
 
 /*  Entrada: Nada.
     Salida: Nada.
-    Objetivo: Son muchos saltos de lineas contendiso en un printf(), uno tras otro, para genera un súper salto de línea y así facilitar el orden y pulcritud del juego y código.
+    Objetivo: Son muchos saltos de lineas contenidos en un printf(), uno tras otro, para genera un súper salto de línea y así facilitar el orden y pulcritud del juego y código.
 */
 void saltarMucho(){
 
@@ -241,9 +286,9 @@ int * generarMochila(){
     //Tesoros.
     bolso[1] = 0;
     //Dados de ataque.
-    bolso[2] = 1;
+    bolso[2] = 99;
     //Dados de defensa.
-    bolso[3] = 1;
+    bolso[3] = 99;
     //Vida.
     bolso[4] = 17;
     //Arma
@@ -970,25 +1015,28 @@ int * comprar(int * bolso){
     printf("Una figura encapuchada se te acerca.\nTiene aspecto enfermizo.\nHabla un idioma desconocido...\n\n'Got some rare things on sale, stranger!'\n\nTe muestra un extraño catálogo.\nCreo que te quiere vender algo...\n");
     presionarEnter();
 
-    //Se le muestra el catálogo de items por pantalla al jugador.
-    mostrarCatalogo();
-    printf("\n\nPosees %d tesoros.\n\n", bolso[1]);
+    //Se le muestra al jugador la cantidad de tesoros disponibles para que pueda tomar una decisión informada.
+    printf("\nPosees %d tesoros.\n", bolso[1]);
 
     //Se le pregunte si desea comprar algún item del catálogo.
-    printf("\n¿Deseas comprar algún item?\nSeleccione una opción.\n1. Sí, me gustaría.\n2. No, por favor alejate.\n>>");
+    printf("\n¿Deseas ver el catálogo y comprar algún item?\nSeleccione una opción.\n1. Sí, me gustaría.\n2. No, por favor alejate.\n>>");
     scanf("%d", &opcion);
     getchar();
+    saltarMucho();
 
     //Mientras la opción este fuera del rango adecuado, se le hace la pregunta nuevamente.
-    while(opcion > 2){
+    while(opcion > 2 || opcion <= 0){
 
         printf("\nElegir una de las opciones válidas.\n1. Quiero comprar.\n2. Quiero seguir avanzando.\n>>");
         scanf("%d", &opcion);
         getchar();
+        saltarMucho();
     }
     //Mientras la opción sea "Sí", se le seguirá realizando la pregunta.
     while(opcion == 1){
-
+        //Se le muestra el catálogo de items disponibles al jugador y los tesoros disponibles.
+        mostrarCatalogo();
+        printf("\nPosees %d tesoros.\n", bolso[1]);
         //Si los tesoros guardados en el bolso se acaban, el periodo de compras termina.
         if(bolso[1] == 0){
 
@@ -1000,8 +1048,7 @@ int * comprar(int * bolso){
         }
         //Caso contrario el periodo de compras continua.
         else{
-
-            printf("\n\n\n\n'What are you buying?'\n¿Qué número del catálogo deseas comprar?\n\nSi quieres ver de nuevo el catálogo, la opción es 10.\nRecuerda que la opción para salir es 11.\n>>");
+            printf("\n\n'What are you buying?'\n¿Qué número del catálogo deseas comprar?\n\nSi quieres ver de nuevo el catálogo, la opción es 10.\nRecuerda que la opción para salir es 11.\n>>");
             scanf("%d", &catalogo);
             getchar();
         }
@@ -1261,7 +1308,7 @@ int * comprar(int * bolso){
 
 
         }
-
+        //Si la opción del catálogo elegida por el usuario es 11, se termina la compra.
         if(catalogo == 11){
             saltarMucho();
             printf("\n'Come back anytime!'\n");
@@ -1305,7 +1352,19 @@ int * jugadorEncerrado(int ** tablero, int * bolso){
             bolso[4] = 33;
         }
     }
-
+    //Si el jugador se encuentra en el último nivel antes de llegar a Drácula.
+    //Entonces es necesario validar que no tape su camino para el casillero final.
+    if(ubicacion[0] == 1){
+        //Si los tres casilleros en los cuales es posible acceder a Drácula ya han sido visitados por el jugador (es decir muestran un '3')
+        //Entonces significa que su camino está tapado y no puede acceder al casillero final.
+        if( tablero[1][4] == 3 &&
+            tablero[1][5] == 3 &&
+            tablero[1][3] == 3){
+            //Esto es demostrado cambiando la cantidad de vidas as 33, que en la función main() será validado en el momento adecuado.
+            bolso[4] = 33;
+        }
+    }
+    //Si ninguno de los dos casos es cumplido, entonces el bolso del jugador es entregado tal cual vino como entrada.
     return bolso;
 }
 
@@ -1357,20 +1416,21 @@ int * batallar(int * bolso, int dadosAtaqueEnemigo, int dadosDefensaEnemigo, int
 // bolso = [pocion, tesoro, dadosAtaque, dadosDefensa, vida, arma, escudo, armadura]
 
     saltarMucho();
+
 /*  Las variables declaradas son las siguientes:
 
-    Instancia: Cantidad de hechos ocurridos (dados lanzados)
+    Instancia: Cantidad de hechos ocurridos (dados lanzados).
     Lanzamiento: El número del dado que alguno de los peleadores lanzó.
     Resultado: Se guardan los resultados de los dados obtenidos.
 
     dadoLanzado Ataque/Defensa Enemigo/Jugador [dados Ataque/Defensa Enemigo/Jugador]: Arreglo donde se guardarán cada uno de los resultados obtenidos por los lanzamientos de los dados. 
-    Tanto del jugador como el enemigo, tanto como en defensa y ataque.
+                                                                                       Tanto del jugador como del enemigo, tanto como en defensa y ataque.
 
-    ataque/defensa Enemigo/Jugador: La cantidad de 'seis' obtenidos en los lanzamientos para cada instancia es guardada en estas variables.
+    ataque/defensa Enemigo/Jugador: La cantidad de 'seis' obtenidos en los lanzamientos para cada instancia es guardada en éstas variables.
 
-    finalCombate: Si el combate termina, esta variable cambia para romper el ciclo.
-    derrotaDracula: Si Drácula es derrotado, esta variable cambia su valor, para así poder modificar la mochila del jugador de manera adecuada.
-    */ 
+    finalCombate: Si el combate termina, ésta variable cambia para romper el ciclo.
+    derrotaDracula: Si Drácula es derrotado, ésta variable cambia su valor, para así poder modificar la mochila del jugador de manera adecuada.
+*/ 
 
     int instancia;
     int lanzamiento;
@@ -1424,14 +1484,14 @@ int * batallar(int * bolso, int dadosAtaqueEnemigo, int dadosDefensaEnemigo, int
             presionarEnter();
             saltarMucho();
 
-            //Analogamente, comienza la defensa del jugador.
+            //Análogamente, comienza la defensa del jugador.
             for(lanzamiento = 0; lanzamiento < dadosDefensaJugador; lanzamiento++){
 
                 printf("Lanzaste un %d.\n", dadoLanzadoDefensaJugador[lanzamiento]);
             }
-
+            //Se busca la cantidad de 'seis' obtenidos en los lanzamientos de los dados de defensa del jugador.
             defensaJugador = buscarSeis(dadoLanzadoDefensaJugador, dadosDefensaJugador);
-
+            //Se le informa al jugador de cuántos ataques fueron bloqueados.
             printf("\nBloqueaste %d ataque(s).\n", defensaJugador);
 
             //Si la resta de la cantidad de '6' lanzados en la defensa del jugador con la cantidad de '6' en el ataque del enemigo es negativa, el jugador pierde una o más vidas.
@@ -1439,14 +1499,15 @@ int * batallar(int * bolso, int dadosAtaqueEnemigo, int dadosDefensaEnemigo, int
                 
 
                 aleatorizarFrase(1); // ID 1: El jugador pierde vida.
-
+                //Se le informa al jugador cuántas vidas perdio en el ataque.
                 printf("Perdiste %d vida(s).\n", -1*(defensaJugador - ataqueEnemigo));
                 //Se le restan las vidas correspondiente al jugador.
                 bolso[4] += (defensaJugador - ataqueEnemigo);
+                //Se le informa al jugador cuántas vidas le restan.
                 printf("Te quedan %d vidas.\n", bolso[4]);
                 presionarEnter();
 
-                //Si la vida del jugador se reduce a 0 o menor, el combate termina.
+                //Si la vida del jugador se reduce a 0 o menor, el combate debe terminar en ese mismo instante.
                 if(bolso[4] <= 0){
 
                     break;
@@ -1455,7 +1516,7 @@ int * batallar(int * bolso, int dadosAtaqueEnemigo, int dadosDefensaEnemigo, int
 
                 saltarMucho();
             }
-
+            //Si esta operación es mayor o igual a 0, siognifca que el jugador bloqueo todos los ataques que le fueron lanzados.
             if((defensaJugador - ataqueEnemigo) >= 0){
 
                 aleatorizarFrase(2); // ID 2: El jugador bloquea todos los ataques del enemigo.
@@ -1463,7 +1524,7 @@ int * batallar(int * bolso, int dadosAtaqueEnemigo, int dadosDefensaEnemigo, int
                 saltarMucho();
             }            
         }
-        //El enemigo falla todos sus ataques.
+        //Si la variable ataqueEnemigo sigue siendo 0, el enemigo falla todos sus ataques.
         else if(ataqueEnemigo == 0){
 
             aleatorizarFrase(3); // ID 3: El enemigo falla sus ataques.
@@ -1541,18 +1602,6 @@ int * batallar(int * bolso, int dadosAtaqueEnemigo, int dadosDefensaEnemigo, int
         }
     }
 
-    if(bolso[4] > 0 && derrotaDracula == 0){
-        
-        if(bolso[0] > 0)
-            bolso = beberPocion(bolso);
-
-        if(bolso[1] > 0)
-          bolso = comprar(bolso);
-
-        return bolso;
-        saltarMucho();        
-    }
-
     if(derrotaDracula == 1){
         //The answer to life, the universe and everything.
         bolso[4] = 42;  
@@ -1569,10 +1618,11 @@ int * encontrarEntidad(int ** tablero, int * bolso){
 
 /* Esta función es sumamente repetitiva, por lo tanto la explicación es la siguiente:
 
-    Primero se busca la ubicación del jugador y es guardad en un arreglo.
-    Dependiendo de la fila en la cual el jugador se encuentre, se entra al condicional adecuado.
+    Primero se busca la ubicación del jugador y es guardada en un arreglo (ubicacion).
+    Dependiendo de la fila en la cual el jugador se encuentre (información guardada en ubicacion[0]), se entra al condicional adecuado.
     Una vez dentro del condicional adecuado, se procede a lanzar el dado.
-    Segun el resultado del dado y la tabla referenciada en el enunciado del proyecto, se le informa al jugador que encontró o con quién batallará.
+    Según el resultado del dado y la tabla referenciada en el enunciado del proyecto, se le informa al jugador que encontró o con quién batallará.
+
     Si es batalla se llama a la función batalla con los parámetros del enemigo correspondientes.
     Si es poción o tesoro, se le suma a su mochila los items adecuados.
 */
@@ -1585,6 +1635,8 @@ int * encontrarEntidad(int ** tablero, int * bolso){
     if(ubicacion[0] == 10){
 
         dado = lanzarDado();
+        //Se le informa al jugador del resultado de su lanzamiento.
+        printf("\nLanzaste un %d \n", dado);
 
         if(dado == 1){
             aleatorizarFrase(20);
@@ -1615,6 +1667,8 @@ int * encontrarEntidad(int ** tablero, int * bolso){
     if(ubicacion[0] == 9){
 
         dado = lanzarDado();
+        //Se le informa al jugador del resultado de su lanzamiento.
+        printf("\nLanzaste un %d \n", dado);
 
         if(dado == 1){
             aleatorizarFrase(8);
@@ -1655,6 +1709,8 @@ int * encontrarEntidad(int ** tablero, int * bolso){
     if(ubicacion[0] == 8){
 
         dado = lanzarDado();
+        //Se le informa al jugador del resultado de su lanzamiento.
+        printf("\nLanzaste un %d \n", dado);
 
         if(dado == 1){
             aleatorizarFrase(8);
@@ -1691,12 +1747,13 @@ int * encontrarEntidad(int ** tablero, int * bolso){
             aleatorizarFrase(22);
             presionarEnter();
         }
-
     }
 
     if(ubicacion[0] == 7){
 
         dado = lanzarDado();
+        //Se le informa al jugador del resultado de su lanzamiento.
+        printf("\nLanzaste un %d \n", dado);
 
         if(dado == 1){
             aleatorizarFrase(8);
@@ -1739,6 +1796,8 @@ int * encontrarEntidad(int ** tablero, int * bolso){
     if(ubicacion[0] == 6){
 
         dado = lanzarDado();
+        //Se le informa al jugador del resultado de su lanzamiento.
+        printf("\nLanzaste un %d \n", dado);
 
         if(dado == 1){
             aleatorizarFrase(9);
@@ -1779,6 +1838,8 @@ int * encontrarEntidad(int ** tablero, int * bolso){
     if(ubicacion[0] == 5){
 
         dado = lanzarDado();
+        //Se le informa al jugador del resultado de su lanzamiento.
+        printf("\nLanzaste un %d \n", dado);
 
         if(dado == 1){
 
@@ -1826,6 +1887,8 @@ int * encontrarEntidad(int ** tablero, int * bolso){
     if(ubicacion[0] == 4){
 
         dado = lanzarDado();
+        //Se le informa al jugador del resultado de su lanzamiento.
+        printf("\nLanzaste un %d \n", dado);
 
         if(dado == 1){
 
@@ -1872,6 +1935,8 @@ int * encontrarEntidad(int ** tablero, int * bolso){
     if(ubicacion[0] == 3){
 
         dado = lanzarDado();
+        //Se le informa al jugador del resultado de su lanzamiento.
+        printf("\nLanzaste un %d \n", dado);
 
         if(dado == 1){
 
@@ -1884,6 +1949,7 @@ int * encontrarEntidad(int ** tablero, int * bolso){
 
             aleatorizarFrase(13);
             presionarEnter();
+            bolso = batallar(bolso, 6, 0, bolso[2], bolso[3], 6);
              
         }
 
@@ -1918,6 +1984,8 @@ int * encontrarEntidad(int ** tablero, int * bolso){
     if(ubicacion[0] == 2){
 
         dado = lanzarDado();
+        //Se le informa al jugador del resultado de su lanzamiento.
+        printf("\nLanzaste un %d \n", dado);
 
         if(dado == 1){
 
@@ -1966,6 +2034,8 @@ int * encontrarEntidad(int ** tablero, int * bolso){
     if(ubicacion[0] == 1){
 
         dado = lanzarDado();
+        //Se le informa al jugador del resultado de su lanzamiento.
+        printf("\nLanzaste un %d \n", dado);
 
         if(dado == 1){
 
@@ -2032,6 +2102,21 @@ int * encontrarEntidad(int ** tablero, int * bolso){
         bolso = batallar(bolso, 9, 9, bolso[2], bolso[3], 9);
 
     }
+    //Una vez que el jugador ya terminó de batallar, o ya se le sumó la poción o tesoro encontrado, o simplemente encontró nada, se abren las opciones de compra y beber pociones.
+    //Si el jugador todavía sigue con vida y no se encuentra en el casillero donde reside Drácula.
+    if(bolso[4] > 0 && ubicacion[0] != 0){
+        //Si el jugador tiene pociones.
+        if(bolso[0] > 0)
+            bolso = beberPocion(bolso);
+
+        //Si el jugador tiene tesoros.
+        if(bolso[1] > 0)
+          bolso = comprar(bolso);
+
+        return bolso;
+        saltarMucho();        
+    
+    }
 
     return bolso;
 }
@@ -2060,6 +2145,8 @@ int validarJugada(int ** tablero, int jugada, int fila, int columna){
 
             printf("\nJugada inválida.\n");
             jugada = ingresarJugada();
+            //Se vuelve a enviar la nueva jugada ingresada a la misma función presente.
+            //De esta forma queda asegurado que la jugada ingresada será pedida de nuevo cuantas veces sea necesario.
             jugada = validarJugada(tablero, jugada, fila, columna);
         }
     }
@@ -2207,7 +2294,7 @@ int ** mostrarJugadasValidas(int ** tablero){
     columna = ubicacion[1];
 
     //Se ignora la primera fila para evitar errores catástroficos de fuera de rango.
-    if(ubicacion[0] != 0){
+    if(ubicacion[0] != 0 && ubicacion[1] != 0){
         //Siempre y cuando exista un 0 (casillero disponible), se escribirá el número de la jugada válida.
         //Como ya se habían ocupado los números 1, 2 y 3 para otras funciones, se decidió por representarlas con numeros de dos dígitos.
         if(tablero[fila - 1][columna - 1] == 0)
@@ -2233,6 +2320,26 @@ int ** mostrarJugadasValidas(int ** tablero){
 
         if(tablero[fila][columna - 1] == 0)
             tablero[fila][columna - 1] = 88;
+    }
+    //Para evitar que la función entre en índices menores a 0 y aniquile la función liberarTablero(), se impide que, si el jugador se encuentra en la columna 0, muestre jugadas válidas en posiciones con índices menores a 0.
+    //En este caso el 1,7 y 8.
+    else if(ubicacion[0] != 0 && ubicacion[1] == 0){
+
+        if(tablero[fila - 1][columna] == 0)
+            tablero[fila - 1][columna] = 22;
+
+        if(tablero[fila - 1][columna + 1] == 0)
+            tablero[fila - 1][columna + 1] = 33;
+
+        if(tablero[fila][columna + 1] == 0)
+            tablero[fila][columna + 1] = 44;
+
+        if(tablero[fila + 1][columna + 1] == 0)
+            tablero[fila + 1][columna + 1] = 55;
+
+        if(tablero[fila + 1][columna] == 0)
+            tablero[fila + 1][columna] = 66;
+
 
     }
     //Se retorna el tablero ya modificado con las jugadas válidas.
@@ -2425,7 +2532,7 @@ void imprimirTablero(int ** tablero){
                 printf("\t---------------------------------------------------------------------\n");
             }
 
-            //Si la columna es la primera, como objetivo centrar el tablero, se agrega una tabulación.
+            //Si la columna es la primera, con objetivo de centrar el tablero, se agrega una tabulación.
             else if(columna == 0 && tablero[fila][columna] == 0)
                 printf("\t|   |");
 
@@ -2446,7 +2553,7 @@ void imprimirTablero(int ** tablero){
             else if(fila == 11 && columna == 4 && tablero[fila][columna] == 3)
                 printf("   |///|");
             //El casillero final.
-            else if(fila == 0 && columna == 4)
+            else if(fila == 0 && columna == 4 && tablero[fila][columna] == 0)
                 printf("   |   |");
 
             //Si existe un 0, la casilla se muestra vacía.
@@ -2475,14 +2582,29 @@ void imprimirTablero(int ** tablero){
             else if(columna == 0)
                 printf("\t| %d |", cambiarDobleASolo(tablero[fila][columna]));
 
+            else if(fila == 0 && columna == 4 && tablero[fila][columna] != 0)
+                printf("\t| %d |", cambiarDobleASolo(tablero[fila][columna]));
+
+
             else
                 printf("|||| %d |", cambiarDobleASolo(tablero[fila][columna]));
         }
     }
+    /*int column;
+    int row;
+    printf("\n\n");
+    for(row = 0; row < 13; row++){
 
+        for(column = 0; column < 9; column++){
+            if(column == 8)
+                printf("\t%d\n", tablero[row][column]);
+
+            else
+                printf("\t%d", tablero[row][column]);
+        }
+    } */
     return;
 }
-
 
 int main(){
     // Presentación del juego.
@@ -2558,7 +2680,7 @@ int main(){
     Ubicación corresponde a la posición (fila y columna) del jugador en el momento actual.
     Mochila es un arreglo donde se guarda toda la información actualizada del jugador a medida que avanza por el juego (Armas, pociones, tesoros y vida).
     Tablero es un arreglo de dos dimensiones que representa el tablero, en forma de una "matriz".
-    Condición corresponde a 0 si el juego debe seguir, ó 1 si el juego debe terminar (jugador muere o Drácula es derrotado) 
+    Condición corresponde a 0 si el juego debe seguir, ó 1 si el juego debe terminar (jugador muere, Drácula es derrotado o el jugador ha encerrado su camino). 
 */    
     int jugada;
     int * ubicacion;
@@ -2578,7 +2700,7 @@ int main(){
     //Se imprime el tablero inicial.
     imprimirTablero(tablero);
 
-    //Se "limpia" el tablero de las jugadas válidas mostradas visualmente con anterioridad para hacer espacio a las siguientes jugadas válidas.
+    //Se "limpia" el tablero de las jugadas válidas mostradas visualmente con anterioridad para hacer espacio a las jugadas válidas del siguiente turno.
     tablero = limpiarTablero(tablero);
 
     //Se muestran todos los items que el jugador posee al momento del juego, en este  caso: todo lo inicial.
@@ -2601,17 +2723,18 @@ int main(){
         //Se muestran en el tablero todas las jugadas válidas disponibles al jugador.
         tablero = mostrarJugadasValidas(tablero);
 
-        //Dependiendo de la posición del jugador (fila) y el resultado del lanzamiento de un dado, se definirá con que el jugador se encontrará en cada casillero al cual ha llegado.
-        //El resultado de lo que sea que haya encontrado (pocion, tesoro, batalla o simplemente nada), es guardado en la mochila generada con anterioridad.
+        //Dependiendo de la posición del jugador (fila) y el resultado del lanzamiento de un dado, se definirá con qué entidad el jugador se encontrará en cada casillero al cual ha llegado.
+        //El resultado de lo que sea que haya encontrado (poción, tesoro, batalla o simplemente nada), es guardado en la mochila generada con anterioridad.
         mochila = encontrarEntidad(tablero, mochila);
 
-        //Se imprimie el tablero actualizado.
+        //Se imprime el tablero actualizado.
         imprimirTablero(tablero);
 
-        //Se eliminan las jugadas válidas mostradas con anterioridad para hacer espacio a las jugadas válidas siguientes.
+        //Se eliminan las jugadas válidas mostradas con anterioridad para hacer espacio a las jugadas válidas del siguiente turno.
         tablero = limpiarTablero(tablero);
 
         //Se asegura que el jugador NO haya quedado encerrado por sus propios movimientos, si esto fuese así, se genera un número en el arreglo 'mochila' para indicar que el juego debe terminar.
+        //Este número generado es el 33 en la parte de vidas (mochila[4]).
         mochila = jugadorEncerrado(tablero, mochila);
 
         //Se le muestra al jugador los items que hasta el momento posee.
@@ -2622,7 +2745,7 @@ int main(){
 
             saltarMucho();
             saltarMucho();
-            //La condición de término es entregada por el return de la funcion muerteJugador().
+            //La condición de término (condicion = 1) es entregada por el return de la funcion muerteJugador().
             condicion = muerteJugador();
         }
 
@@ -2631,7 +2754,7 @@ int main(){
 
             saltarMucho();
             saltarMucho();
-            //El cambio a la condición es dado por la función muerteDracula().
+            //El cambio a la condición = 1 es dado por la función muerteDracula().
             condicion = muerteDracula();
         }
 
@@ -2640,7 +2763,10 @@ int main(){
 
             saltarMucho();
             saltarMucho();
-            printf("\n¡Te has quedado encerrado!\nPerdiste el juego.\n");
+            imprimirTablero(tablero);
+            printf("\n");
+            printf("\n¡Te has quedado encerrado!\n¿Como quieres liberar BROWNSTONE si no puedes llegar al final de la mina?\n¡INÚTIL!\nFracasaste tu misión.\nPerdiste el juego.\n");
+            presionarEnter();
             //Se cambia la condición necesaria.
             condicion = 1;
         }
