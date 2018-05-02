@@ -2,11 +2,10 @@
 #include <stdlib.h>
 #include <time.h>
 
-/*  Rodolfo Montaña Alvarado
-    RUT 18.903.271-4
+/*  Rodolfo 
 
-    Sección 13201-0-L-2
-    Profesor Alejandro Cisterna Villalobos
+    Sección 
+    Profesor 
 
     2 de Mayo del 2018
 
